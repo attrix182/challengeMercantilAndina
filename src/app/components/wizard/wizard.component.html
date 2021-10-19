@@ -1,0 +1,107 @@
+<div [formGroup]="formDatosPersonales">
+  <div class="card">
+    <div class="card-body">
+
+      <h2 class="card-title">Alta de asegurado</h2>
+
+      <h5 class="card-title">Datos personales</h5>
+      <div class="row">
+
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <input [class]="isValidField('dni')" type="text" class="form-control" placeholder="DNI"
+              formControlName="dni" required autofocus>
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <input [class]="isValidField('apellido')" type="email" class="form-control" placeholder="Apellido"
+              formControlName="apellido" required>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <input [class]="isValidField('nombre')" type="text" class="form-control" placeholder="Nombre"
+              formControlName="nombre" required>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <input  type="text" 
+            onfocus="(this.type='date')" [class]="isValidField('fechaNacimiento')" class="form-control" placeholder="fecha de Nacimiento"
+              formControlName="fechaNacimiento" required>
+          </div>
+        </div>
+
+        <h5 class="card-title col-md-12">Datos de contacto</h5>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <input [class]="isValidField('email')" type="email" class="form-control" placeholder="Email"
+              formControlName="email" required>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <input [class]="isValidField('celular')" type="text" class="form-control" placeholder="Celular"
+              formControlName="celular" required>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <input [class]="isValidField('telefono')" type="text" class="form-control" placeholder="Telefono"
+              formControlName="telefono" required>
+          </div>
+        </div>
+
+        <h5 class="card-title col-md-12">Ubicacion</h5>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" [class]="isValidField('provincia')" class="form-control" placeholder="Provincia"
+              formControlName="provincia" required>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" [class]="isValidField('ciudad')" class="form-control" placeholder="Ciudad"
+              formControlName="ciudad" required>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <input type="text" [class]="isValidField('domicilio')" class="form-control" placeholder="Domicilio"
+              formControlName="domicilio" required>
+          </div>
+        </div>
+
+        <h5 class="card-title col-md-12">Usuario</h5>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input [class]="isValidField('usuario')" type="text" class="form-control" placeholder="Nombre de usuario"
+              formControlName="usuario" required>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <input [class]="isValidField('contrasena')" type="password" class="form-control" placeholder="Contraseña"
+              formControlName="contrasena" required>
+          </div>
+        </div>
+
+
+<!-- <p class="card-text">Form.</p> -->
+
+        <button (click)="test()" [disabled]="formDatosPersonales.invalid" class="btn btn-primary btn-block">Siguiente</button>
+      </div>
+    </div>

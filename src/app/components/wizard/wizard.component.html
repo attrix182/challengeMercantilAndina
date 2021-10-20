@@ -1,4 +1,4 @@
-<div [formGroup]="formDatosPersonales">
+<div [formGroup]="formDatosPersonales" *ngIf="paso == 1">
   <div class="card">
     <div class="card-body">
 
@@ -32,8 +32,8 @@
 
         <div class="col-md-12">
           <div class="form-group">
-            <input  type="text" 
-            onfocus="(this.type='date')" [class]="isValidField('fechaNacimiento')" class="form-control" placeholder="fecha de Nacimiento"
+            <input (ngModelChange)="validarEdad()" type="text" onfocus="(this.type='date')"
+              [class]="isValidField('fechaNacimiento')" class="form-control" placeholder="Fecha de nacimiento"
               formControlName="fechaNacimiento" required>
           </div>
         </div>
@@ -65,15 +65,21 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <input type="text" [class]="isValidField('provincia')" class="form-control" placeholder="Provincia"
-              formControlName="provincia" required>
+            <select class="custom-select" [class]="isValidField('provincia')" formControlName="provincia"
+              (ngModelChange)="getCiudadesByProvincia($event)" required>
+              <option disabled>Provincia</option>
+              <option *ngFor="let prov of provinciasNombres" value="{{prov}}">{{prov}}</option>
+            </select>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <input type="text" [class]="isValidField('ciudad')" class="form-control" placeholder="Ciudad"
-              formControlName="ciudad" required>
+            <select class="custom-select" [class]="isValidField('ciudad')" class="form-control" formControlName="ciudad"
+              required>
+              <option disabled>Ciudad</option>
+              <option *ngFor="let ciud of ciudadesNombres" value="{{ciud}}">{{ciud}}</option>
+            </select>
           </div>
         </div>
 
@@ -87,8 +93,9 @@
         <h5 class="card-title col-md-12">Usuario</h5>
         <div class="col-md-6">
           <div class="form-group">
-            <input [class]="isValidField('usuario')" type="text" class="form-control" placeholder="Nombre de usuario"
-              formControlName="usuario" required>
+            <input (ngModelChange)="verifyExistingUser()" [class]="isValidField('usuario')" type="text"
+              class="form-control" placeholder="Nombre de usuario" formControlName="usuario" required>
+
           </div>
         </div>
 
@@ -100,8 +107,9 @@
         </div>
 
 
-<!-- <p class="card-text">Form.</p> -->
+        <!-- <p class="card-text">Form.</p> -->
 
-        <button (click)="test()" [disabled]="formDatosPersonales.invalid" class="btn btn-primary btn-block">Siguiente</button>
+        <button (click)="test()" [disabled]="formDatosPersonales.valid"
+          class="btn btn-primary btn-block">Siguiente</button>
       </div>
     </div>

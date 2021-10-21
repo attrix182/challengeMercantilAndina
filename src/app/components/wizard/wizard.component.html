@@ -1,115 +1,23 @@
-<div [formGroup]="formDatosPersonales" *ngIf="paso == 1">
-  <div class="card">
-    <div class="card-body">
-
-      <h2 class="card-title">Alta de asegurado</h2>
-
-      <h5 class="card-title">Datos personales</h5>
-      <div class="row">
 
 
-        <div class="col-md-12">
-          <div class="form-group">
-            <input [class]="isValidField('dni')" type="text" class="form-control" placeholder="DNI"
-              formControlName="dni" required autofocus>
-          </div>
-        </div>
 
 
-        <div class="col-md-6">
-          <div class="form-group">
-            <input [class]="isValidField('apellido')" type="email" class="form-control" placeholder="Apellido"
-              formControlName="apellido" required>
-          </div>
-        </div>
+<div *ngIf="paso == 1"  align=center class="animate__animated animate__backInDown">
+  <app-form-datos-personales (sendAsegurado)="recibirDatosPersonales($event)"></app-form-datos-personales>
+</div>
 
-        <div class="col-md-6">
-          <div class="form-group">
-            <input [class]="isValidField('nombre')" type="text" class="form-control" placeholder="Nombre"
-              formControlName="nombre" required>
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="form-group">
-            <input (ngModelChange)="validarEdad()" type="text" onfocus="(this.type='date')"
-              [class]="isValidField('fechaNacimiento')" class="form-control" placeholder="Fecha de nacimiento"
-              formControlName="fechaNacimiento" required>
-          </div>
-        </div>
-
-        <h5 class="card-title col-md-12">Datos de contacto</h5>
-
-        <div class="col-md-12">
-          <div class="form-group">
-            <input [class]="isValidField('email')" type="email" class="form-control" placeholder="Email"
-              formControlName="email" required>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <input [class]="isValidField('celular')" type="text" class="form-control" placeholder="Celular"
-              formControlName="celular" required>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <input [class]="isValidField('telefono')" type="text" class="form-control" placeholder="Telefono"
-              formControlName="telefono" required>
-          </div>
-        </div>
-
-        <h5 class="card-title col-md-12">Ubicacion</h5>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <select class="custom-select" [class]="isValidField('provincia')" formControlName="provincia"
-              (ngModelChange)="getCiudadesByProvincia($event)" required>
-              <option disabled>Provincia</option>
-              <option *ngFor="let prov of provinciasNombres" value="{{prov}}">{{prov}}</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <select class="custom-select" [class]="isValidField('ciudad')" class="form-control" formControlName="ciudad"
-              required>
-              <option disabled>Ciudad</option>
-              <option *ngFor="let ciud of ciudadesNombres" value="{{ciud}}">{{ciud}}</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="form-group">
-            <input type="text" [class]="isValidField('domicilio')" class="form-control" placeholder="Domicilio"
-              formControlName="domicilio" required>
-          </div>
-        </div>
-
-        <h5 class="card-title col-md-12">Usuario</h5>
-        <div class="col-md-6">
-          <div class="form-group">
-            <input (ngModelChange)="verifyExistingUser()" [class]="isValidField('usuario')" type="text"
-              class="form-control" placeholder="Nombre de usuario" formControlName="usuario" required>
-
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <input [class]="isValidField('contrasena')" type="password" class="form-control" placeholder="Contraseña"
-              formControlName="contrasena" required>
-          </div>
-        </div>
+<div  *ngIf="paso == 2"  align=center class="animate__animated animate__backInLeft">
+  <app-form-datos-vehiculo  (sendVehiculo)="recibirDatosVehiculo($event)"></app-form-datos-vehiculo>
+</div>
 
 
-        <!-- <p class="card-text">Form.</p> -->
+<div   *ngIf="paso == 3" align=center class="animate__animated animate__backInLeft">
+  <app-form-coberturas (sendCobertura)="recibirDatosCobertura($event)"></app-form-coberturas>
+</div>
 
-        <button (click)="test()" [disabled]="formDatosPersonales.valid"
-          class="btn btn-primary btn-block">Siguiente</button>
-      </div>
-    </div>
+
+<div   *ngIf="paso == 4" align=center class="animate__animated animate__backInLeft">
+  <app-form-resumen [datosPersonalesAsegurado]="asegurado"  [datosVehiculoAsegurado]="vehiculo" [datosCoberturaAsegurado]="cobertura"></app-form-resumen>
+</div>
+
+

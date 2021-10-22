@@ -10,7 +10,7 @@
         <div class="col-md-6">
           <label for="Marca">Marca</label>
           <div class="form-group">
-            <select class="custom-select" [class]="isValidField('marca')" formControlName="marca"
+            <select class="custom-select" [class]="isValidField('marca')"  formControlName="marca"
               (ngModelChange)="getModelosByMarcaAnio($event)" required>
               <option disabled>Marca</option>
               <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
@@ -33,7 +33,7 @@
             <select class="custom-select" [class]="isValidField('modelo')" class="form-control" formControlName="modelo"
               (ngModelChange)="getVersiones($event)" required>
               <option disabled>Modelo</option>
-              <option *ngFor="let modelo of modelos" value="{{modelo}}">{{modelo}}</option>
+              <option *ngFor="let modelo of modelos" [ngValue]="modelo">{{modelo}}</option>
             </select>
           </div>
         </div>
@@ -45,12 +45,16 @@
             <select class="custom-select" [class]="isValidField('version')" class="form-control"
               formControlName="version" required>
               <option disabled>Version</option>
-              <option *ngFor="let version of versiones" value="{{version.nombre}}">{{version.nombre}}</option>
+              <option *ngFor="let version of versiones" [ngValue]="version">{{version.nombre}}</option>
             </select>
           </div>
         </div>
 
-        <button (click)="nextStep()" [disabled]="formDatosVehiculo.invalid"
+        <button (click)="nextStep()" *ngIf="!datosVehiculoEditar" [disabled]="formDatosVehiculo.invalid"
           class="btn btn-primary btn-block">Siguiente</button>
+
+
+        <button (click)="finishModify()" *ngIf="datosVehiculoEditar" [disabled]="formDatosVehiculo.invalid"
+          class="btn btn-info text-dark btn-block">Modificar</button>
       </div>
     </div>

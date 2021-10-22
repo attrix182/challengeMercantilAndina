@@ -1,7 +1,7 @@
 
 import { Vehiculo } from './../../clases/vehiculo';
 import { Asegurado } from './../../clases/asegurado';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-wizard',
@@ -15,31 +15,45 @@ export class WizardComponent implements OnInit {
   public vehiculo: Vehiculo;
   public cobertura: any;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   recibirDatosPersonales(asegurado: Asegurado) {
     this.paso = 2;
     this.asegurado = asegurado;
-    console.log(this.asegurado)
+
   }
 
   recibirDatosVehiculo(vehiculo: Vehiculo) {
     this.paso = 3;
     this.vehiculo = vehiculo;
-    console.log(this.vehiculo)
+
   }
 
   recibirDatosCobertura(cobertura: any) {
     this.paso = 4;
     this.cobertura = cobertura;
-    console.log(this.cobertura)
+
   }
 
-  goToEdit(paso:any)
-  {
+  goToEdit(paso: any) {
     this.paso = paso
+  }
+
+
+
+  recibirDatosPersonalesEditados(asegurado: Asegurado) {
+    this.paso = 4;
+    this.asegurado = asegurado;
+
+  }
+
+
+  recibirDatosVehiculoEditado(vehiculo: Vehiculo) {
+    this.paso = 4;
+    this.vehiculo = vehiculo;
+
   }
 
 }

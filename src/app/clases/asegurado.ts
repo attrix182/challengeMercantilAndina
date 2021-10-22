@@ -5,14 +5,14 @@ export class Asegurado {
     email: string;
     celular: number;
     telefono: number;
-    provincia: string;
-    ciudad: string;
+    provincia: any;
+    ciudad: any;
     domicilio: string;
     fechaNacimiento: any;
     usuario: string;
     contrasena: string;
 
-    constructor(dni: number, nombre: string, apellido: string, email: string, telefono: number, celular: number, provincia: string, ciudad: string, domicilio: string, fechaNacimiento: Date, usuario: string, contrasena: string) {
+    constructor(dni: number, nombre: string, apellido: string, email: string, telefono: number, celular: number, provincia: any, ciudad: any, domicilio: string, fechaNacimiento: Date, usuario: string, contrasena: string) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;

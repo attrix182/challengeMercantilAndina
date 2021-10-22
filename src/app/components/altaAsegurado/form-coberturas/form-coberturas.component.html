@@ -23,10 +23,16 @@
     </div>
 
 
-    <button class="btn btn-primary btn-block"  (click)="nextStep()" [disabled]="!coberturaSeleccionada">Siguiente</button>
+    <button class="btn btn-primary btn-block" *ngIf="!datosCoberturaEditar" (click)="nextStep()" [disabled]="!coberturaSeleccionada">Siguiente</button>
+          
+    <button (click)="finishModify()" *ngIf="datosCoberturaEditar" [disabled]="!coberturaSeleccionada"
+    class="btn btn-info text-dark btn-block">Modificar</button>
 
   </div>
 </div>
+
+
+
 
 
 <ng-template #modalCobertura let-modal>

@@ -1,5 +1,6 @@
+import { Vehiculo } from './../../../clases/vehiculo';
 import { ApisService } from './../../../services/apis.service';
-import { Component, OnInit, EventEmitter, ViewChild, TemplateRef, ViewContainerRef, HostListener, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild, TemplateRef, ViewContainerRef, HostListener, Output, Input } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,18 +20,26 @@ export class FormCoberturasComponent implements OnInit {
 
   @Output() sendCobertura: EventEmitter<any> = new EventEmitter<any>();
 
+  @Input() datosCoberturaEditar: any;
+
+
   @ViewChild('modalCobertura', { read: TemplateRef })
   modalCobertura: TemplateRef<any>;
 
-  constructor(private apisSVC: ApisService, private config: NgbRatingConfig, private modalService: NgbModal) {
+  constructor(private apisSVC: ApisService, private stars: NgbRatingConfig, private modalService: NgbModal) {
 
-    config.max = 5;
-    config.readonly = true;
+    stars.max = 5;
+    stars.readonly = true;
 
   }
 
   ngOnInit(): void {
     this.getCoberturas();
+
+    if(this.datosCoberturaEditar){
+      this.coberturaClickeada = this.datosCoberturaEditar;
+      this.coberturaSeleccionada = this.datosCoberturaEditar;
+    }
 
   }
 
@@ -78,6 +87,10 @@ export class FormCoberturasComponent implements OnInit {
     this.sendCobertura.emit(this.coberturaSeleccionada)
   }
 
+
+  finishModify() {
+    this.sendCobertura.emit(this.coberturaSeleccionada)
+  }
 
 
 }

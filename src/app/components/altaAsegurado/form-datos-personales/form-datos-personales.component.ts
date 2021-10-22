@@ -1,6 +1,6 @@
 import { ApisService } from './../../../services/apis.service';
 import { Asegurado } from './../../../clases/asegurado';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
@@ -13,10 +13,14 @@ export class FormDatosPersonalesComponent implements OnInit {
   public asegurado: Asegurado;
   public formDatosPersonales: FormGroup;
   public provincias: any;
-  public provinciasNombres: any;
-  public ciudadesNombres: string;
+  public ciudades: any;
+
+
+  @Input() datosPersonalesEditar: Asegurado;
 
   @Output() sendAsegurado: EventEmitter<Asegurado> = new EventEmitter<Asegurado>();
+
+  @Output() sendAseguradoEdited: EventEmitter<Asegurado> = new EventEmitter<Asegurado>();
 
   constructor(private FB: FormBuilder, private apisSVC: ApisService) { }
 
@@ -41,23 +45,45 @@ export class FormDatosPersonalesComponent implements OnInit {
       contrasena: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
 
     });
+
+    if (this.datosPersonalesEditar) {
+      this.formDatosPersonales.patchValue({
+        apellido: this.datosPersonalesEditar.apellido,
+        nombre: this.datosPersonalesEditar.nombre,
+        dni: this.datosPersonalesEditar.dni,
+        email: this.datosPersonalesEditar.email,
+        celular: this.datosPersonalesEditar.celular,
+        telefono: this.datosPersonalesEditar.telefono,
+
+        provincia: this.datosPersonalesEditar.provincia.id,
+        ciudad: this.datosPersonalesEditar.ciudad.id,
+        
+        domicilio: this.datosPersonalesEditar.domicilio,
+        fechaNacimiento: this.datosPersonalesEditar.fechaNacimiento,
+        usuario: this.datosPersonalesEditar.usuario,
+        contrasena: this.datosPersonalesEditar.contrasena,
+
+      });
+    }
+
+
   }
 
   getProvincias() {
     this.apisSVC.getProvincias().subscribe(
       result => {
 
-        this.provinciasNombres = result.provincias.map(prov => ({ nombre: prov.nombre, id: prov.id }));
+        this.provincias = result.provincias.map(prov => ({ nombre: prov.nombre, id: prov.id }));
 
       },
     );
   }
 
-  getCiudadesByProvincia(provincia: string) {
-    console.log(provincia);
-    this.apisSVC.getCiudades(provincia).subscribe(
+  getCiudadesByProvincia(provincia: any) {
+    console.log(provincia)
+    this.apisSVC.getCiudades(provincia.id).subscribe(
       result => {
-        this.ciudadesNombres = result.municipios.map(municipio => municipio.nombre);
+        this.ciudades = result.municipios.map(munic => ({ nombre: munic.nombre, id: munic.id }));
       },
     );
   }
@@ -112,6 +138,11 @@ export class FormDatosPersonalesComponent implements OnInit {
   nextStep() {
     this.asegurado = this.formDatosPersonales.value;
     this.sendAsegurado.emit(this.asegurado)
+  }
+
+  finishModify() {
+    this.asegurado = this.formDatosPersonales.value;
+    this.sendAseguradoEdited.emit(this.asegurado)
   }
 
 

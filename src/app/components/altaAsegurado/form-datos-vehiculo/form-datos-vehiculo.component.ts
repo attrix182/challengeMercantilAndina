@@ -1,6 +1,6 @@
 import { Vehiculo } from './../../../clases/vehiculo';
 import { ApisService } from './../../../services/apis.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -16,13 +16,23 @@ export class FormDatosVehiculoComponent implements OnInit {
   public marcas: any;
   public versiones: any;
 
+
   @Output() sendVehiculo: EventEmitter<Vehiculo> = new EventEmitter<Vehiculo>();
+
+
+  @Output() sendVehiculoEditado: EventEmitter<Vehiculo> = new EventEmitter<Vehiculo>();
+
+  @Input() datosVehiculoEditar: Vehiculo;
 
   constructor(private FB: FormBuilder, private apisSVC: ApisService) { }
 
   ngOnInit(): void {
 
+
+
+
     this.getMarcas();
+
     this.formDatosVehiculo = this.FB.group({
 
       marca: new FormControl('', [Validators.required]),
@@ -30,6 +40,23 @@ export class FormDatosVehiculoComponent implements OnInit {
       modelo: new FormControl('', [Validators.required]),
       version: new FormControl('', [Validators.required]),
     });
+
+
+    if (this.datosVehiculoEditar) {
+
+      console.log(this.datosVehiculoEditar);
+
+      this.formDatosVehiculo.controls.marca.setValue(this.datosVehiculoEditar.marca.nombre);
+
+      this.formDatosVehiculo.patchValue({
+        marca: this.datosVehiculoEditar.marca,
+        anio: this.datosVehiculoEditar.anio,
+        modelo: this.datosVehiculoEditar.modelo,
+        version: this.datosVehiculoEditar.version,
+      });
+    }
+
+
   }
 
 
@@ -96,6 +123,12 @@ export class FormDatosVehiculoComponent implements OnInit {
 
     this.vehiculo = this.formDatosVehiculo.value;
     this.sendVehiculo.emit(this.vehiculo);
+  }
+
+  finishModify() {
+
+    this.vehiculo = this.formDatosVehiculo.value;
+    this.sendVehiculoEditado.emit(this.vehiculo);
   }
 
 }

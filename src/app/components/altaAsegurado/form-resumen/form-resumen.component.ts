@@ -20,10 +20,14 @@ export class FormResumenComponent implements OnInit {
 
   public marcas: any[] = [];
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
-
+    console.log(this.datosPersonalesAsegurado);
+   /*  this.datosPersonalesAsegurado = JSON.parse(localStorage.getItem('asegurado'));
+    this.datosVehiculoAsegurado = JSON.parse(localStorage.getItem('vehiculo'));
+    this.datosCoberturaAsegurado = JSON.parse(localStorage.getItem('cobertura'));
+ */
   }
 
   editarDatosPersonales() {
@@ -34,8 +38,8 @@ export class FormResumenComponent implements OnInit {
     this.editVehiculo.emit(2);
   }
 
-  
+
   editarCobertura() {
-    this.editVehiculo.emit(1);
+    this.editVehiculo.emit(3);
   }
 }

@@ -25,10 +25,6 @@ export class WizardComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-  this.asegurado = JSON.parse(localStorage.getItem('asegurado')) 
-  this.cobertura = JSON.parse(localStorage.getItem('cobertura')) 
-  this.vehiculo = JSON.parse(localStorage.getItem('vehiculo')) 
   }
 
   recibirDatosPersonales(asegurado: Asegurado) {

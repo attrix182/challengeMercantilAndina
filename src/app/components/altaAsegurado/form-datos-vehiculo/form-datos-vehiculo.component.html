@@ -13,7 +13,7 @@
               <select class="custom-select" [class]="isValidField('marca')" formControlName="marca"
               (ngModelChange)="getModelosByMarcaAnio($event)"  required>
                 <option disabled>Marca</option>
-                <option *ngFor="let marca of marcas" value="{{marca.id + '-'+ marca.nombre}}">{{marca.nombre}}</option>
+                <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
               
               </select>
             </div>

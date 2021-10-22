@@ -65,11 +65,7 @@ export class FormDatosVehiculoComponent implements OnInit {
 
   getModelosByMarcaAnio(event: Event) {
 
-    let marca = this.formDatosVehiculo.value.marca;
-
-    marca = marca.split('-')
-    marca = marca[0];
-
+    let marca = this.formDatosVehiculo.value.marca.id;
     let anio = this.formDatosVehiculo.value.anio;
 
     if (!marca || !anio) {
@@ -87,14 +83,8 @@ export class FormDatosVehiculoComponent implements OnInit {
 
   getVersiones(event: Event) {
     let anio = this.formDatosVehiculo.value.anio;
-    let marca = this.formDatosVehiculo.value.marca;
+    let marca = this.formDatosVehiculo.value.marca.id;
     let modelo = this.formDatosVehiculo.value.modelo;
-
-    marca = marca.split('-')
-    marca = marca[0];
-    console.log(marca);
-
-  
 
 
     this.apisSVC.getVersiones(marca, anio, modelo).subscribe(
@@ -126,15 +116,7 @@ export class FormDatosVehiculoComponent implements OnInit {
 
   nextStep() {
 
-    let marca = this.formDatosVehiculo.value.marca;
-
-    marca = marca.split('-')
-    marca = marca[1];
-    console.log(marca);
-   
     this.vehiculo = this.formDatosVehiculo.value;
-    this.vehiculo.marca = marca
-    localStorage.setItem('vehiculo', JSON.stringify(this.vehiculo));
     this.sendVehiculo.emit(this.vehiculo);
   }
 

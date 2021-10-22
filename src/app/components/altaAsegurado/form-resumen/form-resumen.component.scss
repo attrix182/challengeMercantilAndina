@@ -23,9 +23,9 @@
 
 .cardDatosHeader {
   text-align: center;
-  background-color: #08A0C7;
-
+  border-radius: 500px;
   border: 3px solid rgb(0, 0, 0);
+  margin: 0.2em;
 }
 
 
@@ -37,15 +37,6 @@
 
 }
 
-
-.btnEditar {
-  background-color: #08A0C7;
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1%;
-}
 
 
 

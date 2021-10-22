@@ -3,7 +3,7 @@
 
     <h2 class="card-title">Alta de asegurado</h2>
 
-
+    <h6 >Verifique sus datos antes de continuar</h6>
 
     <div class="cardDatos">
 
@@ -25,7 +25,7 @@
         <h6>Usuario: {{datosPersonalesAsegurado.usuario}}</h6>
         <h6>Contraseña: {{datosPersonalesAsegurado.contrasena}}</h6>
       </div>
-      <div class="btn btn-info btnEditar"> <i class="fas fa-pen"></i> Editar</div>
+      <button class="mb-2 btn btn-info btn-block text-dark btnEditar"> <i class="fas fa-pen"></i> Editar</button>
     </div>
 
 
@@ -37,13 +37,13 @@
         </div>
   
         <div>
-          <h6>Marca: {{datosVehiculoAsegurado.marca}}</h6>
+          <h6>Marca: {{datosVehiculoAsegurado.marca.nombre}}</h6>
           <h6>Modelo: {{datosVehiculoAsegurado.modelo}}</h6>
           <h6>Año: {{datosVehiculoAsegurado.anio}}</h6>
           <h6>Version: {{datosVehiculoAsegurado.version}}</h6>
         
         </div>
-        <div class="btn btn-info btnEditar" > <i class="fas fa-pen"></i> Editar</div>
+        <button class="mb-2 btn btn-info btn-block text-dark btnEditar"> <i class="fas fa-pen"></i> Editar</button>
     </div>
 
       <div class="cardDatos mt-2">
@@ -61,12 +61,8 @@
           <h6>Descripcion: {{datosCoberturaAsegurado.descripcion | formatearDescripcion}}</h6>
          
         </div>
-        <div class="btn btn-info btnEditar"> <i class="fas fa-pen"></i> Editar</div>
+        <button class="mb-2 btn btn-info btn-block text-dark btnEditar"> <i class="fas fa-pen"></i> Editar</button>
     </div>
-
-  
-  
-
-
   </div>
+  <button class="btn btn-primary btn-block m-3 mb-1">Siguiente</button>
 </div>

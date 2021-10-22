@@ -12,7 +12,7 @@ import { Component, OnInit} from '@angular/core';
 })
 export class WizardComponent implements OnInit {
 
-  public paso: number = 2;
+  public paso: number = 1;
 
   public asegurado: Asegurado;
   public vehiculo: Vehiculo;

@@ -1,6 +1,6 @@
 # Challenge de Mercantil Andina
 
-Este proyecto es un reto propuesto por la compañia de seguros Mercantil andina para el puesto de Frontend developer Angular.
+Este proyecto es un reto propuesto por la compañía de seguros Mercantil andina para el puesto de Frontend developer Angular.
 
 Consiste en un formulario guiado por pasos para dar de alta a un asegurado, para lo cual se debe pedir varios datos, validarlos y guardarlos.
 

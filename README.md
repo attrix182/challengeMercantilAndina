@@ -12,11 +12,11 @@ Durante su desarrollo fue vital entender como funcionan las consultas a apis ext
 
 ## Tecnologias y bibliotecas utilizadas
 
-1.Angular CLI 12.2.7.
-2.Bootstrapt 4.6.0
-3.ng-bootstrap 10.0.0
-4.Animate.css 4.1.1
-5.FontAwesome 5.8.2
+1. Angular CLI 12.2.7
+2. Bootstrapt 4.6.0
+3. ng-bootstrap 10.0.0
+4. Animate.css 4.1.1
+5. FontAwesome 5.8.2
 
 
 

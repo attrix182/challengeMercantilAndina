@@ -19,6 +19,7 @@ Durante su desarrollo fue vital entender como funcionan las consultas a apis ext
 5.FontAwesome 5.8.2
 
 
+
 ## Ejecutar proyecto
 
 Hay dos opciones:

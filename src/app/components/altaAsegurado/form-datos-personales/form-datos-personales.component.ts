@@ -1,7 +1,7 @@
 import { ApisService } from './../../../services/apis.service';
 import { Asegurado } from './../../../clases/asegurado';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class FormDatosPersonalesComponent implements OnInit {
       nombre: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15), Validators.pattern('[a-zA-Z]*')]),
       email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       celular: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(14), Validators.pattern('[0-9]*')]),
-      telefono: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[0-9]*')]),
+      telefono: new FormControl('', [Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[0-9]*')]),
       provincia: new FormControl('', [Validators.required]),
       ciudad: new FormControl('', [Validators.required]),
       domicilio: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),

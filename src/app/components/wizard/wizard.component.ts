@@ -1,3 +1,4 @@
+
 import { Vehiculo } from './../../clases/vehiculo';
 import { Asegurado } from './../../clases/asegurado';
 
@@ -11,7 +12,7 @@ import { Component, OnInit} from '@angular/core';
 })
 export class WizardComponent implements OnInit {
 
-  public paso: number = 1;
+  public paso: number = 2;
 
   public asegurado: Asegurado;
   public vehiculo: Vehiculo;
@@ -23,6 +24,11 @@ export class WizardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+  this.asegurado = JSON.parse(localStorage.getItem('asegurado')) 
+  this.cobertura = JSON.parse(localStorage.getItem('cobertura')) 
+  this.vehiculo = JSON.parse(localStorage.getItem('vehiculo')) 
   }
 
   recibirDatosPersonales(asegurado: Asegurado) {
@@ -42,6 +48,7 @@ export class WizardComponent implements OnInit {
     this.cobertura = cobertura;
     console.log(this.cobertura)
   }
+
 
   nextStep() {
     this.paso++;

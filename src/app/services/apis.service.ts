@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ApisService {
 
+
+
   constructor(private http: HttpClient) { }
 
   getProvincias(): Observable<any> {
@@ -27,17 +29,18 @@ export class ApisService {
     return this.http.get('https://servicios.qamercantilandina.com.ar/api/v1/vehiculos/marcas');
   }
 
-  getModelos(idMarca:any, anio:any): Observable<any> {
+  
 
-    return this.http.get('https://servicios.qamercantilandina.com.ar/api/v1/vehiculos/marcas/' + idMarca + '/' + anio );
+  getModelos(idMarca: any, anio: any): Observable<any> {
+
+    return this.http.get('https://servicios.qamercantilandina.com.ar/api/v1/vehiculos/marcas/' + idMarca + '/' + anio);
   }
 
-  getVersiones(idMarca:any,  anio:any, idModelo:any,): Observable<any> {
-    return this.http.get('https://servicios.qamercantilandina.com.ar/api/v1/vehiculos/marcas/' + idMarca + '/' + anio + '/' + idModelo );
+  getVersiones(idMarca: any, anio: any, idModelo: any,): Observable<any> {
+    return this.http.get('https://servicios.qamercantilandina.com.ar/api/v1/vehiculos/marcas/' + idMarca + '/' + anio + '/' + idModelo);
   }
 
-  getCoberturas()
-  {
+  getCoberturas() {
     return this.http.get('https://servicios.qamercantilandina.com.ar/api_mock_frontend/v1/coberturas');
   }
 

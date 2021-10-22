@@ -13,11 +13,12 @@
               <select class="custom-select" [class]="isValidField('marca')" formControlName="marca"
               (ngModelChange)="getModelosByMarcaAnio($event)"  required>
                 <option disabled>Marca</option>
-                <option *ngFor="let marca of marcas" value="{{marca.id}}">{{marca.nombre}}</option>
+                <option *ngFor="let marca of marcas" value="{{marca.id + '-'+ marca.nombre}}">{{marca.nombre}}</option>
+              
               </select>
             </div>
           </div>
-            
+   
           <div class="col-md-6">
             <div class="form-group">
               <label for="modelo">Año</label>
@@ -44,7 +45,7 @@
               <select class="custom-select" [class]="isValidField('version')" class="form-control" formControlName="version"
                 required>
                 <option disabled>Version</option>
-                <option *ngFor="let version of versiones" value="{{version.id}}">{{version.nombre}}</option>
+                <option *ngFor="let version of versiones" value="{{version.nombre}}">{{version.nombre}}</option>
               </select>
             </div>
           </div>

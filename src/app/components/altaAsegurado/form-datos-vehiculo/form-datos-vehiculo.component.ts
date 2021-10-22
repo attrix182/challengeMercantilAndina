@@ -1,7 +1,7 @@
 import { Vehiculo } from './../../../clases/vehiculo';
 import { ApisService } from './../../../services/apis.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {  FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-datos-vehiculo',
@@ -18,6 +18,8 @@ export class FormDatosVehiculoComponent implements OnInit {
   public versiones: any;
 
   @Output() sendVehiculo: EventEmitter<Vehiculo> = new EventEmitter<Vehiculo>();
+
+
 
   constructor(private FB: FormBuilder, private apisSVC: ApisService) { }
 
@@ -38,47 +40,35 @@ export class FormDatosVehiculoComponent implements OnInit {
   }
 
 
-validateYear(){
-  let anio = this.formDatosVehiculo.value.anio;
-  let anioActual = new Date().getFullYear();
+  validateYear() {
+    let anio = this.formDatosVehiculo.value.anio;
+    let anioActual = new Date().getFullYear();
 
-  if(anio > anioActual || anio < anioActual - 20){
-    this.formDatosVehiculo.get('anio').setErrors({'invalidYear': true});
+    if (anio > anioActual || anio < anioActual - 20) {
+      this.formDatosVehiculo.get('anio').setErrors({ 'invalidYear': true });
+    }
+    return false;
   }
-  return false;
-}
+
+
 
   getMarcas() {
     this.apisSVC.getMarcas().subscribe(
       result => {
         this.marcas = result.map(marca => ({ nombre: marca.desc, id: marca.codigo }));
-
       },
     );
   }
 
-  getVersiones(event: Event) {
-    let anio = this.formDatosVehiculo.value.anio;
-    let marca = this.formDatosVehiculo.value.marca;
-    let modelo = this.formDatosVehiculo.value.modelo;
 
 
-    this.apisSVC.getVersiones(marca, anio, modelo).subscribe(
-      result => {
-
-        this.versiones = result.map(version => ({ nombre: version.desc, id: version.codigo }));
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-
-  }
 
   getModelosByMarcaAnio(event: Event) {
 
     let marca = this.formDatosVehiculo.value.marca;
+
+    marca = marca.split('-')
+    marca = marca[0];
 
     let anio = this.formDatosVehiculo.value.anio;
 
@@ -92,6 +82,29 @@ validateYear(){
         this.modelos = result;
 
       },
+    );
+  }
+
+  getVersiones(event: Event) {
+    let anio = this.formDatosVehiculo.value.anio;
+    let marca = this.formDatosVehiculo.value.marca;
+    let modelo = this.formDatosVehiculo.value.modelo;
+
+    marca = marca.split('-')
+    marca = marca[0];
+    console.log(marca);
+
+  
+
+
+    this.apisSVC.getVersiones(marca, anio, modelo).subscribe(
+      result => {
+
+        this.versiones = result.map(version => ({ nombre: version.desc, id: version.codigo }));
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 
@@ -113,8 +126,15 @@ validateYear(){
 
   nextStep() {
 
-    this.vehiculo = this.formDatosVehiculo.value;
+    let marca = this.formDatosVehiculo.value.marca;
 
+    marca = marca.split('-')
+    marca = marca[1];
+    console.log(marca);
+   
+    this.vehiculo = this.formDatosVehiculo.value;
+    this.vehiculo.marca = marca
+    localStorage.setItem('vehiculo', JSON.stringify(this.vehiculo));
     this.sendVehiculo.emit(this.vehiculo);
   }
 

@@ -13,7 +13,7 @@
   </div>
 
   <div *ngIf="paso == 4" class="animate__animated animate__backInLeft">
-    <app-form-resumen [datosPersonalesAsegurado]="asegurado" [datosVehiculoAsegurado]="vehiculo"
+    <app-form-resumen (editarCobertura)="goToEdit($event)" (editarDatosPersonales)="goToEdit($event)" (editVehiculo)="goToEdit($event)" [datosPersonalesAsegurado]="asegurado" [datosVehiculoAsegurado]="vehiculo"
       [datosCoberturaAsegurado]="cobertura"></app-form-resumen>
   </div>
 

@@ -37,4 +37,9 @@ export class WizardComponent implements OnInit {
     console.log(this.cobertura)
   }
 
+  goToEdit(paso:any)
+  {
+    this.paso = paso
+  }
+
 }

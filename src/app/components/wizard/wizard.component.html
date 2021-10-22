@@ -1,23 +1,20 @@
+<div class="container text-center">
 
+  <div *ngIf="paso == 1" class="animate__animated animate__backInDown">
+    <app-form-datos-personales (sendAsegurado)="recibirDatosPersonales($event)"></app-form-datos-personales>
+  </div>
 
+  <div *ngIf="paso == 2" class="animate__animated animate__backInLeft">
+    <app-form-datos-vehiculo (sendVehiculo)="recibirDatosVehiculo($event)"></app-form-datos-vehiculo>
+  </div>
 
+  <div *ngIf="paso == 3" class="animate__animated animate__backInLeft">
+    <app-form-coberturas (sendCobertura)="recibirDatosCobertura($event)"></app-form-coberturas>
+  </div>
 
-<div *ngIf="paso == 1"  align=center class="animate__animated animate__backInDown">
-  <app-form-datos-personales (sendAsegurado)="recibirDatosPersonales($event)"></app-form-datos-personales>
+  <div *ngIf="paso == 4" class="animate__animated animate__backInLeft">
+    <app-form-resumen [datosPersonalesAsegurado]="asegurado" [datosVehiculoAsegurado]="vehiculo"
+      [datosCoberturaAsegurado]="cobertura"></app-form-resumen>
+  </div>
+
 </div>
-
-<div  *ngIf="paso == 2"  align=center class="animate__animated animate__backInLeft">
-  <app-form-datos-vehiculo  (sendVehiculo)="recibirDatosVehiculo($event)"></app-form-datos-vehiculo>
-</div>
-
-
-<div   *ngIf="paso == 3" align=center class="animate__animated animate__backInLeft">
-  <app-form-coberturas (sendCobertura)="recibirDatosCobertura($event)"></app-form-coberturas>
-</div>
-
-
-<div   *ngIf="paso == 4" align=center class="animate__animated animate__backInLeft">
-  <app-form-resumen [datosPersonalesAsegurado]="asegurado"  [datosVehiculoAsegurado]="vehiculo" [datosCoberturaAsegurado]="cobertura"></app-form-resumen>
-</div>
-
-

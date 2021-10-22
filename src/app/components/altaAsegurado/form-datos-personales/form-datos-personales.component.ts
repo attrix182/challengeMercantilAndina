@@ -18,7 +18,6 @@ export class FormDatosPersonalesComponent implements OnInit {
 
   @Output() sendAsegurado: EventEmitter<Asegurado> = new EventEmitter<Asegurado>();
 
-
   constructor(private FB: FormBuilder, private apisSVC: ApisService) { }
 
   ngOnInit(): void {
@@ -39,7 +38,6 @@ export class FormDatosPersonalesComponent implements OnInit {
       fechaNacimiento: new FormControl('', [Validators.required]),
 
       usuario: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-
       contrasena: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
 
     });
@@ -77,7 +75,6 @@ export class FormDatosPersonalesComponent implements OnInit {
 
 
   verifyExistingUser() {
-
     this.apisSVC.verifyUser(this.formDatosPersonales.value.usuario).subscribe(
       result => {
         if (result) {
@@ -94,7 +91,6 @@ export class FormDatosPersonalesComponent implements OnInit {
   }
 
   validarEdad() {
-
     var hoy = new Date();
     var cumpleanos = new Date(this.formDatosPersonales.value.fechaNacimiento);
     var edad = hoy.getFullYear() - cumpleanos.getFullYear();
@@ -114,8 +110,6 @@ export class FormDatosPersonalesComponent implements OnInit {
 
 
   nextStep() {
-
-
     this.asegurado = this.formDatosPersonales.value;
     this.sendAsegurado.emit(this.asegurado)
   }

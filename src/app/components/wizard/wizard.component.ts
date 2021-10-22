@@ -1,9 +1,7 @@
 
 import { Vehiculo } from './../../clases/vehiculo';
 import { Asegurado } from './../../clases/asegurado';
-
 import { Component, OnInit} from '@angular/core';
-
 
 @Component({
   selector: 'app-wizard',
@@ -13,19 +11,13 @@ import { Component, OnInit} from '@angular/core';
 export class WizardComponent implements OnInit {
 
   public paso: number = 1;
-
   public asegurado: Asegurado;
   public vehiculo: Vehiculo;
   public cobertura: any;
 
+  constructor() {}
 
-  constructor() { 
-
-  }
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   recibirDatosPersonales(asegurado: Asegurado) {
     this.paso = 2;
@@ -44,11 +36,5 @@ export class WizardComponent implements OnInit {
     this.cobertura = cobertura;
     console.log(this.cobertura)
   }
-
-
-  nextStep() {
-    this.paso++;
-  }
-
 
 }

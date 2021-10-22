@@ -12,24 +12,17 @@ export class FormDatosVehiculoComponent implements OnInit {
 
   public vehiculo: Vehiculo;
   public formDatosVehiculo: FormGroup;
-
   public modelos: any;
   public marcas: any;
   public versiones: any;
 
   @Output() sendVehiculo: EventEmitter<Vehiculo> = new EventEmitter<Vehiculo>();
 
-
-
   constructor(private FB: FormBuilder, private apisSVC: ApisService) { }
 
   ngOnInit(): void {
 
-
-
     this.getMarcas();
-
-
     this.formDatosVehiculo = this.FB.group({
 
       marca: new FormControl('', [Validators.required]),
@@ -50,8 +43,6 @@ export class FormDatosVehiculoComponent implements OnInit {
     return false;
   }
 
-
-
   getMarcas() {
     this.apisSVC.getMarcas().subscribe(
       result => {
@@ -59,9 +50,6 @@ export class FormDatosVehiculoComponent implements OnInit {
       },
     );
   }
-
-
-
 
   getModelosByMarcaAnio(event: Event) {
 
@@ -74,9 +62,7 @@ export class FormDatosVehiculoComponent implements OnInit {
 
     this.apisSVC.getModelos(marca, anio).subscribe(
       result => {
-
         this.modelos = result;
-
       },
     );
   }
@@ -86,10 +72,8 @@ export class FormDatosVehiculoComponent implements OnInit {
     let marca = this.formDatosVehiculo.value.marca.id;
     let modelo = this.formDatosVehiculo.value.modelo;
 
-
     this.apisSVC.getVersiones(marca, anio, modelo).subscribe(
       result => {
-
         this.versiones = result.map(version => ({ nombre: version.desc, id: version.codigo }));
       },
       error => {
@@ -97,10 +81,6 @@ export class FormDatosVehiculoComponent implements OnInit {
       }
     );
   }
-
-
-
-
 
 
   isValidField(field: string): string {
@@ -112,15 +92,10 @@ export class FormDatosVehiculoComponent implements OnInit {
         : '';
   }
 
-
-
   nextStep() {
 
     this.vehiculo = this.formDatosVehiculo.value;
     this.sendVehiculo.emit(this.vehiculo);
   }
-
-
-
 
 }

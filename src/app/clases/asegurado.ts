@@ -5,11 +5,9 @@ export class Asegurado {
     email: string;
     celular: number;
     telefono: number;
-
     provincia: string;
     ciudad: string;
     domicilio: string;
-    
     fechaNacimiento: any;
     usuario: string;
     contrasena: string;

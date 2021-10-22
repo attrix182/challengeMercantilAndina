@@ -3,7 +3,7 @@
 
     <h2 class="card-title">Alta de asegurado</h2>
 
-    <h6 >Verifique sus datos antes de continuar</h6>
+    <h6>Verifique sus datos antes de continuar</h6>
 
     <div class="cardDatos">
 
@@ -31,38 +31,38 @@
 
     <div class="cardDatos mt-2">
 
-        <div class="cardDatosHeader">
-          <i class="fas fa-car icon"></i>
-          <h5 class="card-title">Datos del vehiculo</h5>
-        </div>
-  
-        <div>
-          <h6>Marca: {{datosVehiculoAsegurado.marca.nombre}}</h6>
-          <h6>Modelo: {{datosVehiculoAsegurado.modelo}}</h6>
-          <h6>Año: {{datosVehiculoAsegurado.anio}}</h6>
-          <h6>Version: {{datosVehiculoAsegurado.version}}</h6>
-        
-        </div>
-        <button class="mb-2 btn btn-info btn-block text-dark btnEditar"> <i class="fas fa-pen"></i> Editar</button>
+      <div class="cardDatosHeader">
+        <i class="fas fa-car icon"></i>
+        <h5 class="card-title">Datos del vehiculo</h5>
+      </div>
+
+      <div>
+        <h6>Marca: {{datosVehiculoAsegurado.marca.nombre}}</h6>
+        <h6>Modelo: {{datosVehiculoAsegurado.modelo}}</h6>
+        <h6>Año: {{datosVehiculoAsegurado.anio}}</h6>
+        <h6>Version: {{datosVehiculoAsegurado.version}}</h6>
+
+      </div>
+      <button class="mb-2 btn btn-info btn-block text-dark btnEditar"> <i class="fas fa-pen"></i> Editar</button>
     </div>
 
-      <div class="cardDatos mt-2">
+    <div class="cardDatos mt-2">
 
-        <div class="cardDatosHeader">
-            <i class="fas fa-file-invoice icon"></i>
-          <h5 class="card-title">Cobertura</h5>
-        </div>
-  
-        <div>
-          <h6>Titulo: {{datosCoberturaAsegurado.titulo }}</h6>
-          <h6>Franquicia: ${{datosCoberturaAsegurado.franquicia}}</h6>
-          <h6>Costo: ${{datosCoberturaAsegurado.costo}}</h6>
-          <h6>Granizo: {{datosCoberturaAsegurado.granizo | formatearGranizo}}</h6>
-          <h6>Descripcion: {{datosCoberturaAsegurado.descripcion | formatearDescripcion}}</h6>
-         
-        </div>
-        <button class="mb-2 btn btn-info btn-block text-dark btnEditar"> <i class="fas fa-pen"></i> Editar</button>
+      <div class="cardDatosHeader">
+        <i class="fas fa-file-invoice icon"></i>
+        <h5 class="card-title">Cobertura</h5>
+      </div>
+
+      <div>
+        <h6>Titulo: {{datosCoberturaAsegurado.titulo }}</h6>
+        <h6>Franquicia: ${{datosCoberturaAsegurado.franquicia}}</h6>
+        <h6>Costo: ${{datosCoberturaAsegurado.costo}}</h6>
+        <h6>Granizo: {{datosCoberturaAsegurado.granizo | formatearGranizo}}</h6>
+        <h6>Descripcion: {{datosCoberturaAsegurado.descripcion | formatearDescripcion}}</h6>
+
+      </div>
+      <button class="mb-2 btn btn-info text-dark btn-block btnEditar"> <i class="fas fa-pen"></i> Editar</button>
     </div>
   </div>
-  <button class="btn btn-primary btn-block m-3 mb-1">Siguiente</button>
+  <button class="btn btn-primary btn-block mb-3 mt-3">Siguiente</button>
 </div>

@@ -29,8 +29,6 @@ export class ApisService {
     return this.http.get('https://servicios.qamercantilandina.com.ar/api/v1/vehiculos/marcas');
   }
 
-  
-
   getModelos(idMarca: any, anio: any): Observable<any> {
 
     return this.http.get('https://servicios.qamercantilandina.com.ar/api/v1/vehiculos/marcas/' + idMarca + '/' + anio);

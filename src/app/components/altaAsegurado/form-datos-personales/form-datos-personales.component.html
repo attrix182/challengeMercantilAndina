@@ -1,38 +1,62 @@
 <div [formGroup]="formDatosPersonales">
   <div class="card">
     <div class="card-body">
-
       <h2 class="card-title">Alta de asegurado</h2>
 
       <h5 class="card-title">Datos personales</h5>
       <div class="row">
-
         <div class="col-md-12">
           <div class="form-group">
-            <input [class]="isValidField('dni')" type="text" class="form-control" placeholder="DNI"
-              formControlName="dni" required  autofocus>
+            <input
+              [class]="isValidField('dni')"
+              type="text"
+              class="form-control"
+              placeholder="DNI"
+              formControlName="dni"
+              required
+              autofocus
+            />
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <input [class]="isValidField('apellido')" type="email" class="form-control" placeholder="Apellido"
-              formControlName="apellido" required>
+            <input
+              [class]="isValidField('apellido')"
+              type="email"
+              class="form-control"
+              placeholder="Apellido"
+              formControlName="apellido"
+              required
+            />
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <input [class]="isValidField('nombre')" type="text" class="form-control" placeholder="Nombre"
-              formControlName="nombre" required>
+            <input
+              [class]="isValidField('nombre')"
+              type="text"
+              class="form-control"
+              placeholder="Nombre"
+              formControlName="nombre"
+              required
+            />
           </div>
         </div>
 
         <div class="col-md-12">
           <div class="form-group">
-            <input (ngModelChange)="validarEdad()" type="text" onfocus="(this.type='date')"
-              [class]="isValidField('fechaNacimiento')" class="form-control" placeholder="Fecha de nacimiento"
-              formControlName="fechaNacimiento" required>
+            <input
+              (ngModelChange)="validarEdad()"
+              type="text"
+              onfocus="(this.type='date')"
+              [class]="isValidField('fechaNacimiento')"
+              class="form-control"
+              placeholder="Fecha de nacimiento"
+              formControlName="fechaNacimiento"
+              required
+            />
           </div>
         </div>
 
@@ -40,22 +64,39 @@
 
         <div class="col-md-12">
           <div class="form-group">
-            <input [class]="isValidField('email')" type="email" class="form-control" placeholder="Email"
-              formControlName="email" required>
+            <input
+              [class]="isValidField('email')"
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              formControlName="email"
+              required
+            />
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <input [class]="isValidField('celular')" type="text" class="form-control" placeholder="Celular"
-              formControlName="celular" required>
+            <input
+              [class]="isValidField('celular')"
+              type="text"
+              class="form-control"
+              placeholder="Celular"
+              formControlName="celular"
+              required
+            />
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <input [class]="isValidField('telefono')" type="text" class="form-control" placeholder="Telefono"
-              formControlName="telefono">
+            <input
+              [class]="isValidField('telefono')"
+              type="text"
+              class="form-control"
+              placeholder="Telefono"
+              formControlName="telefono"
+            />
           </div>
         </div>
 
@@ -64,10 +105,17 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="">Provincia</label>
-            <select class="custom-select" [class]="isValidField('provincia')" formControlName="provincia"
-              (ngModelChange)="onProvinciaChange()" required>
+            <select
+              class="custom-select"
+              [class]="isValidField('provincia')"
+              formControlName="provincia"
+              (ngModelChange)="onProvinciaChange()"
+              required
+            >
               <option disabled>Provincia</option>
-              <option *ngFor="let prov of provincias" [ngValue]="prov.id">{{prov.nombre}}</option>
+              <option *ngFor="let prov of provincias" [ngValue]="prov.id">
+                {{ prov.nombre }}
+              </option>
             </select>
           </div>
         </div>
@@ -75,44 +123,70 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="">Ciudad</label>
-            <select class="custom-select" [class]="isValidField('ciudad')" class="form-control" formControlName="ciudad"
-              required>
+            <select
+              class="custom-select"
+              [class]="isValidField('ciudad')"
+              class="form-control"
+              formControlName="ciudad"
+              required
+            >
               <option disabled>Ciudad</option>
-              <option *ngFor="let ciud of ciudades" [ngValue]="ciud.id">{{ciud.nombre}}</option>
+              <option *ngFor="let ciud of ciudades" [ngValue]="ciud.id">
+                {{ ciud.nombre }}
+              </option>
             </select>
           </div>
         </div>
 
         <div class="col-md-12">
           <div class="form-group">
-            <input type="text" [class]="isValidField('domicilio')" class="form-control" placeholder="Domicilio"
-              formControlName="domicilio" required>
+            <input
+              type="text"
+              [class]="isValidField('domicilio')"
+              class="form-control"
+              placeholder="Domicilio"
+              formControlName="domicilio"
+              required
+            />
           </div>
         </div>
 
         <h5 class="card-title col-md-12">Usuario</h5>
         <div class="col-md-6">
           <div class="form-group">
-            <input (ngModelChange)="verifyExistingUser()" [class]="isValidField('usuario')" type="text"
-              class="form-control" placeholder="Nombre de usuario" formControlName="usuario" required>
-
+            <input
+              (ngModelChange)="verifyExistingUser()"
+              [class]="isValidField('usuario')"
+              type="text"
+              class="form-control"
+              placeholder="Nombre de usuario"
+              formControlName="usuario"
+              required
+            />
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <input [class]="isValidField('contrasena')"  type="password" class="form-control" placeholder="Contraseña"
-              formControlName="contrasena" required>
+            <input
+              [class]="isValidField('contrasena')"
+              type="password"
+              class="form-control"
+              placeholder="Contraseña"
+              formControlName="contrasena"
+              required
+            />
           </div>
-
         </div>
 
-        <button (click)="nextStep()" *ngIf="!datosPersonalesEditar" [disabled]="formDatosPersonales.invalid"
-          class="btn btn-primary btn-block">Siguiente</button>
-
-          
-        <button (click)="finishModify()" *ngIf="datosPersonalesEditar" [disabled]="formDatosPersonales.invalid"
-        class="btn btn-info text-dark btn-block">Modificar</button>
+        <button
+          (click)="nextStep()"
+          [disabled]="formDatosPersonales.invalid"
+          class="btn btn-primary btn-block"
+        >
+          Siguiente
+        </button>
       </div>
-
     </div>
+  </div>
+</div>

@@ -1,65 +1,69 @@
 <div class="card">
-  <div class="card-body" style="width: 100%;">
-
+  <div class="card-body" style="width: 100%">
     <h2 class="card-title">Alta de asegurado</h2>
 
     <h5 class="card-title">Coberturas</h5>
 
     <div class="m-2" *ngFor="let cobertura of coberturas">
-
       <div
-        [ngClass]="{'cardCoberturas':true, 'cardCoberturaSeleccionada': coberturaSeleccionada && cobertura.numero == coberturaSeleccionada.numero  }"
-        (click)="openModalCobertura(cobertura)">
-
-        <h5 class="card-title"> {{cobertura.titulo}} {{cobertura.franquicia  | formatearTitulo}}</h5>
+        [ngClass]="{
+          cardCoberturas: true,
+          cardCoberturaSeleccionada:
+            coberturaSeleccionada &&
+            cobertura.numero == coberturaSeleccionada.numero
+        }"
+        (click)="openModalCobertura(cobertura)"
+      >
+        <h5 class="card-title">
+          {{ cobertura.titulo }} {{ cobertura.franquicia | formatearTitulo }}
+        </h5>
         <strong>
           Puntaje: <ngb-rating [(rate)]="cobertura.puntaje"></ngb-rating>
 
-
-          <br>
-          Valor de cuota: ${{cobertura.costo}} </strong>
+          <br />
+          Valor de cuota: ${{ cobertura.costo }}
+        </strong>
       </div>
-
     </div>
 
-
-    <button class="btn btn-primary btn-block" *ngIf="!datosCoberturaEditar" (click)="nextStep()" [disabled]="!coberturaSeleccionada">Siguiente</button>
-          
-    <button (click)="finishModify()" *ngIf="datosCoberturaEditar" [disabled]="!coberturaSeleccionada"
-    class="btn btn-info text-dark btn-block">Modificar</button>
-
+    <button
+      class="btn btn-primary btn-block"
+      (click)="nextStep()"
+      [disabled]="!coberturaSeleccionada"
+    >
+      Siguiente
+    </button>
   </div>
 </div>
 
-
-
-
-
 <ng-template #modalCobertura let-modal>
-
   <div class="modal-body">
+    <i (click)="modal.dismiss('Cross click')" class="btn btn-white"
+      ><i class="fas fa-times"></i>
+    </i>
 
-    <i (click)="modal.dismiss('Cross click')" class="btn btn-white"><i class="fas fa-times"></i> </i>
+    <h3 class="text-center title mt-3">{{ coberturaClickeada.titulo }}</h3>
 
-    <h3 class="text-center title mt-3">{{coberturaClickeada.titulo}}</h3>
+    <h5 class="text-left subtitle mt-3 mb-3">
+      Valor cuota: ${{ coberturaClickeada.costo }}
+    </h5>
 
-    <h5 class="text-left subtitle mt-3 mb-3">Valor cuota: ${{coberturaClickeada.costo}}</h5>
+    <h6 class="text-left subtitle mt-3 mb-3">{{ coberturaClickeada.texto }}</h6>
 
-    <h6 class="text-left subtitle mt-3 mb-3">{{coberturaClickeada.texto}}</h6>
+    <p>{{ coberturaClickeada.descripcion | formatearDescripcion }}</p>
 
-    <p>{{coberturaClickeada.descripcion  | formatearDescripcion}}</p>
-
-    Cobertura por granizo: {{coberturaClickeada.granizo | formatearGranizo}}
-
+    Cobertura por granizo: {{ coberturaClickeada.granizo | formatearGranizo }}
   </div>
 
-  <div class="modal-actions" align=center>
-    <button class="btn btn-primary m-1" (click)="elegirCobertura()">Seleccionar</button>
+  <div class="modal-actions" align="center">
+    <button class="btn btn-primary m-1" (click)="elegirCobertura()">
+      Seleccionar
+    </button>
   </div>
 
   <div class="modal-footer">
-
-    <small class="text-right "> Puntaje: <ngb-rating [(rate)]="coberturaClickeada.puntaje"></ngb-rating></small>
+    <small class="text-right">
+      Puntaje: <ngb-rating [(rate)]="coberturaClickeada.puntaje"></ngb-rating
+    ></small>
   </div>
-
 </ng-template>

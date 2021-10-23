@@ -1,77 +1,89 @@
 <div class="card">
   <div class="card-body">
-
     <h2 class="card-title">Alta de asegurado</h2>
 
     <h6>Verifique sus datos antes de continuar</h6>
 
     <div class="cardDatos">
-
       <div class="cardDatosHeader">
         <i class="fas fa-address-card icon"></i>
         <h5 class="card-title">Datos personales</h5>
       </div>
 
       <div>
-        <h6>Dni: {{datosPersonalesAsegurado.dni}}</h6>
-        <h6>Apellido: {{datosPersonalesAsegurado.apellido}}</h6>
-        <h6>Nombre: {{datosPersonalesAsegurado.nombre}}</h6>
-        <h6>Email: {{datosPersonalesAsegurado.email}}</h6>
-        <h6>Celular: {{datosPersonalesAsegurado.celular}}</h6>
-        <h6>Telefono: {{datosPersonalesAsegurado.telefono}}</h6>
-        <h6>Provincia: {{datosPersonalesAsegurado.provinciaCompleta.nombre}}</h6>
-        <h6>Ciudad: {{datosPersonalesAsegurado.ciudadCompleta.nombre}}</h6>
-        <h6>Domicilio: {{datosPersonalesAsegurado.domicilio}}</h6>
-        <h6>Usuario: {{datosPersonalesAsegurado.usuario}}</h6>
-        <h6>Contraseña: {{datosPersonalesAsegurado.contrasena}}</h6>
+        <h6>Dni: {{ datosPersonalesAsegurado.dni }}</h6>
+        <h6>Apellido: {{ datosPersonalesAsegurado.apellido }}</h6>
+        <h6>Nombre: {{ datosPersonalesAsegurado.nombre }}</h6>
+        <h6>Email: {{ datosPersonalesAsegurado.email }}</h6>
+        <h6>Celular: {{ datosPersonalesAsegurado.celular }}</h6>
+        <h6>Telefono: {{ datosPersonalesAsegurado.telefono }}</h6>
+        <h6>
+          Provincia: {{ datosPersonalesAsegurado.provinciaCompleta.nombre }}
+        </h6>
+        <h6>Ciudad: {{ datosPersonalesAsegurado.ciudadCompleta.nombre }}</h6>
+        <h6>Domicilio: {{ datosPersonalesAsegurado.domicilio }}</h6>
+        <h6>Usuario: {{ datosPersonalesAsegurado.usuario }}</h6>
+        <h6>Contraseña: {{ datosPersonalesAsegurado.contrasena }}</h6>
       </div>
-      <button class="mb-2 btn btn-info btn-block text-dark btnEditar" (click)="editarDatosPersonales()"> <i
-          class="fas fa-pen"></i> Editar</button>
+      <button
+        class="mb-2 btn btn-info btn-block text-dark btnEditar"
+        (click)="editarDatosPersonales()"
+      >
+        <i class="fas fa-pen"></i> Editar
+      </button>
     </div>
 
-
     <div class="cardDatos mt-2">
-
       <div class="cardDatosHeader">
         <i class="fas fa-car icon"></i>
         <h5 class="card-title">Datos del vehiculo</h5>
       </div>
 
       <div>
-        <h6>Marca: {{datosVehiculoAsegurado.marcaCompleta.nombre}}</h6>
-        <h6>Modelo: {{datosVehiculoAsegurado.modelo}}</h6>
-        <h6>Año: {{datosVehiculoAsegurado.anio}}</h6>
-        <h6>Version: {{datosVehiculoAsegurado.versionCompleta.nombre}}</h6>
-
+        <h6>Marca: {{ datosVehiculoAsegurado.marcaCompleta.nombre }}</h6>
+        <h6>Modelo: {{ datosVehiculoAsegurado.modelo }}</h6>
+        <h6>Año: {{ datosVehiculoAsegurado.anio }}</h6>
+        <h6>Version: {{ datosVehiculoAsegurado.versionCompleta.nombre }}</h6>
       </div>
-      <button class="mb-2 btn btn-info btn-block text-dark btnEditar" (click)="editarVehiculo()"> <i
-          class="fas fa-pen"></i> Editar</button>
+      <button
+        class="mb-2 btn btn-info btn-block text-dark btnEditar"
+        (click)="editarVehiculo()"
+      >
+        <i class="fas fa-pen"></i> Editar
+      </button>
     </div>
 
     <div class="cardDatos mt-2">
-
       <div class="cardDatosHeader">
         <i class="fas fa-file-invoice icon"></i>
         <h5 class="card-title">Cobertura</h5>
       </div>
 
       <div>
-        <h6>Titulo: {{datosCoberturaAsegurado.titulo }}</h6>
-        <h6>Franquicia: ${{datosCoberturaAsegurado.franquicia}}</h6>
-        <h6>Costo: ${{datosCoberturaAsegurado.costo}}</h6>
-        <h6>Granizo: {{datosCoberturaAsegurado.granizo | formatearGranizo}}</h6>
-        <h6>Descripcion: {{datosCoberturaAsegurado.descripcion | formatearDescripcion}}</h6>
-
+        <h6>Titulo: {{ datosCoberturaAsegurado.titulo }}</h6>
+        <h6>Franquicia: ${{ datosCoberturaAsegurado.franquicia }}</h6>
+        <h6>Costo: ${{ datosCoberturaAsegurado.costo }}</h6>
+        <h6>Granizo:{{ datosCoberturaAsegurado.granizo | formatearGranizo }}</h6>
+        <h6>Descripcion:{{ datosCoberturaAsegurado.descripcion | formatearDescripcion }}</h6>
       </div>
-      <button class="mb-2 btn btn-info text-dark btn-block btnEditar" (click)="editarCobertura()"> <i
-          class="fas fa-pen"></i> Editar</button>
+      <button
+        class="mb-2 btn btn-info text-dark btn-block btnEditar"
+        (click)="editarCobertura()"
+      >
+        <i class="fas fa-pen"></i> Editar
+      </button>
     </div>
   </div>
 
-  <button *ngIf="!enviando" (click)="enviarDatos()" class="btn btn-success btn-block mb-3 mt-3">Enviar</button>
+  <button
+    *ngIf="!enviando"
+    (click)="enviarDatos()"
+    class="btn btn-success btn-block mb-3 mt-3"
+  >
+    Enviar
+  </button>
 
   <button *ngIf="enviando" class="btn btn-success btn-block mb-3 mt-3">
     <div class="spinner-border" role="status"></div>
   </button>
-
 </div>

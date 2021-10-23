@@ -1,24 +1,43 @@
 <div class="container text-center">
-
   <div *ngIf="paso == 1" class="animate__animated animate__backInDown">
-    <app-form-datos-personales [datosPersonalesEditar]="asegurado" (sendAsegurado)="recibirDatosPersonales($event)"
-      (sendAseguradoEdited)="recibirDatosPersonalesEditados($event)"></app-form-datos-personales>
+    <app-form-datos-personales
+      [datosPersonalesEditar]="asegurado"
+      (sendAsegurado)="
+        recibirDatosPersonales($event.asegurado, $event.editando)
+      "
+    ></app-form-datos-personales>
   </div>
 
   <div *ngIf="paso == 2" class="animate__animated animate__backInLeft">
-    <app-form-datos-vehiculo [datosVehiculoEditar]="vehiculo" (sendVehiculo)="recibirDatosVehiculo($event)"
-      (sendVehiculoEditado)="recibirDatosVehiculoEditado($event)"></app-form-datos-vehiculo>
+    <app-form-datos-vehiculo
+      [datosVehiculoEditar]="vehiculo"
+      (sendVehiculo)="recibirDatosVehiculo($event.vehiculo, $event.editando)"
+    ></app-form-datos-vehiculo>
   </div>
 
   <div *ngIf="paso == 3" class="animate__animated animate__backInLeft">
-    <app-form-coberturas [datosCoberturaEditar]="cobertura" (sendCobertura)="recibirDatosCobertura($event)">
+    <app-form-coberturas
+      [datosCoberturaEditar]="cobertura"
+      (sendCobertura)="recibirDatosCobertura($event)"
+    >
     </app-form-coberturas>
   </div>
 
   <div *ngIf="paso == 4" class="animate__animated animate__backInLeft">
-    <app-form-resumen (editarCobertura)="goToEdit($event)" (editarDatosPersonales)="goToEdit($event)"
-      (editVehiculo)="goToEdit($event)" [datosPersonalesAsegurado]="asegurado" [datosVehiculoAsegurado]="vehiculo"
-      [datosCoberturaAsegurado]="cobertura"></app-form-resumen>
+    <app-form-resumen
+      (editarCobertura)="goToEdit($event)"
+      (editarDatosPersonales)="goToEdit($event)"
+      (editVehiculo)="goToEdit($event)"
+
+      (registrado)="finalizar($event)"
+
+      [datosPersonalesAsegurado]="asegurado"
+      [datosVehiculoAsegurado]="vehiculo"
+      [datosCoberturaAsegurado]="cobertura"
+    ></app-form-resumen>
   </div>
 
+  <div *ngIf="paso == 5" class="animate__animated animate__backInLeft">
+    <app-form-final></app-form-final>
+  </div>
 </div>

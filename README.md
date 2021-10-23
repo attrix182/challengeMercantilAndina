@@ -17,6 +17,7 @@ Durante su desarrollo fue vital entender como funcionan las consultas a apis ext
 3. ng-bootstrap 10.0.0
 4. Animate.css 4.1.1
 5. FontAwesome 5.8.2
+6. SweetAlert2 11.1.9
 
 
 

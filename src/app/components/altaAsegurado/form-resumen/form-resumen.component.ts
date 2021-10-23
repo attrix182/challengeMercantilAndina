@@ -40,7 +40,6 @@ export class FormResumenComponent implements OnInit {
   }
 
   enviarDatos() {
-    console.log('Enviar datos');
     this.enviando = true;
     setTimeout(() => {
       this.enviando = false;

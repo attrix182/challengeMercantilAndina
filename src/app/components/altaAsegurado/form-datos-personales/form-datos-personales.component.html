@@ -1,4 +1,4 @@
-<div [formGroup]="formDatosPersonales">
+<div [formGroup]="formGroup">
   <div class="card">
     <div class="card-body">
       <h2 class="card-title">Alta de asegurado</h2>
@@ -13,9 +13,13 @@
               class="form-control"
               placeholder="DNI"
               formControlName="dni"
-              required
+              
               autofocus
             />
+
+            <span *ngIf="debeMostrarError('dni')" class="invalid-feedback">
+              {{ obtenerTextoError("dni") }}
+            </span>
           </div>
         </div>
 
@@ -27,8 +31,11 @@
               class="form-control"
               placeholder="Apellido"
               formControlName="apellido"
-              required
+              
             />
+            <span *ngIf="debeMostrarError('apellido')" class="invalid-feedback">
+              {{obtenerTextoError('apellido')}}
+             </span>
           </div>
         </div>
 
@@ -40,8 +47,11 @@
               class="form-control"
               placeholder="Nombre"
               formControlName="nombre"
-              required
+              
             />
+            <span *ngIf="debeMostrarError('nombre')" class="invalid-feedback">
+              {{obtenerTextoError('nombre')}}
+             </span>
           </div>
         </div>
 
@@ -55,8 +65,11 @@
               class="form-control"
               placeholder="Fecha de nacimiento"
               formControlName="fechaNacimiento"
-              required
+              
             />
+            <span *ngIf="debeMostrarError('fechaNacimiento')" class="invalid-feedback">
+              {{obtenerTextoError('fechaNacimiento')}}
+             </span>
           </div>
         </div>
 
@@ -70,8 +83,11 @@
               class="form-control"
               placeholder="Email"
               formControlName="email"
-              required
+              
             />
+            <span *ngIf="debeMostrarError('email')" class="invalid-feedback">
+              {{obtenerTextoError('email')}}
+             </span>
           </div>
         </div>
 
@@ -83,8 +99,11 @@
               class="form-control"
               placeholder="Celular"
               formControlName="celular"
-              required
+              
             />
+            <span *ngIf="debeMostrarError('celular')" class="invalid-feedback">
+              {{obtenerTextoError('celular')}}
+             </span>
           </div>
         </div>
 
@@ -97,6 +116,9 @@
               placeholder="Telefono"
               formControlName="telefono"
             />
+            <span *ngIf="debeMostrarError('telefono')" class="invalid-feedback">
+              {{obtenerTextoError('telefono')}}
+             </span>
           </div>
         </div>
 
@@ -110,13 +132,16 @@
               [class]="isValidField('provincia')"
               formControlName="provincia"
               (ngModelChange)="onProvinciaChange()"
-              required
+              
             >
               <option disabled>Provincia</option>
               <option *ngFor="let prov of provincias" [ngValue]="prov.id">
                 {{ prov.nombre }}
               </option>
             </select>
+            <span *ngIf="debeMostrarError('provincia')" class="invalid-feedback">
+              {{obtenerTextoError('provincia')}}
+             </span>
           </div>
         </div>
 
@@ -128,13 +153,16 @@
               [class]="isValidField('ciudad')"
               class="form-control"
               formControlName="ciudad"
-              required
+              
             >
               <option disabled>Ciudad</option>
               <option *ngFor="let ciud of ciudades" [ngValue]="ciud.id">
                 {{ ciud.nombre }}
               </option>
             </select>
+            <span *ngIf="debeMostrarError('ciudad')" class="invalid-feedback">
+              {{obtenerTextoError('ciudad')}}
+             </span>
           </div>
         </div>
 
@@ -146,8 +174,11 @@
               class="form-control"
               placeholder="Domicilio"
               formControlName="domicilio"
-              required
+              
             />
+            <span *ngIf="debeMostrarError('domicilio')" class="invalid-feedback">
+              {{obtenerTextoError('domicilio')}}
+             </span>
           </div>
         </div>
 
@@ -161,8 +192,11 @@
               class="form-control"
               placeholder="Nombre de usuario"
               formControlName="usuario"
-              required
+              
             />
+            <span *ngIf="debeMostrarError('usuario')" class="invalid-feedback">
+              {{obtenerTextoError('usuario')}}
+             </span>
           </div>
         </div>
 
@@ -174,14 +208,17 @@
               class="form-control"
               placeholder="Contraseña"
               formControlName="contrasena"
-              required
+              
             />
+            <span *ngIf="debeMostrarError('contrasena')" class="invalid-feedback">
+              {{obtenerTextoError('contrasena')}}
+             </span>
           </div>
         </div>
 
         <button
           (click)="nextStep()"
-          [disabled]="formDatosPersonales.invalid"
+          [disabled]="formGroup.invalid"
           class="btn btn-primary btn-block"
         >
           Siguiente

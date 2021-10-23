@@ -55,7 +55,6 @@ export class FormCoberturasComponent implements OnInit {
         this.sortCoberturas();
       },
       (error) => {
-        console.log(error);
       }
     );
   }

@@ -1,22 +1,20 @@
+import { BaseFormAbstract } from '../base-form-abstract/base-form-abstract';
 import { AlertService } from './../../../services/alert.service';
 import { ApisService } from './../../../services/apis.service';
 import { Asegurado } from './../../../clases/asegurado';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-datos-personales',
   templateUrl: './form-datos-personales.component.html',
   styleUrls: ['./form-datos-personales.component.scss'],
 })
-export class FormDatosPersonalesComponent implements OnInit {
+export class FormDatosPersonalesComponent
+  extends BaseFormAbstract
+  implements OnInit
+{
   public asegurado: Asegurado;
-  public formDatosPersonales: FormGroup;
   public provincias: any;
   public ciudades: any;
   public proviniciaCompleta: any;
@@ -34,7 +32,9 @@ export class FormDatosPersonalesComponent implements OnInit {
     private FB: FormBuilder,
     private apisSVC: ApisService,
     private alertSV: AlertService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getProvincias();
@@ -47,15 +47,6 @@ export class FormDatosPersonalesComponent implements OnInit {
     }
   }
 
-  isValidField(field: string): string {
-    const validateField = this.formDatosPersonales.get(field);
-    return !validateField.valid && validateField.touched
-      ? 'is-invalid'
-      : validateField.touched
-      ? 'is-valid'
-      : '';
-  }
-
   getProvincias() {
     this.apisSVC.getProvincias().subscribe((result) => {
       this.provincias = result.provincias.map((prov) => ({
@@ -66,7 +57,6 @@ export class FormDatosPersonalesComponent implements OnInit {
   }
 
   getCiudadesByProvincia(provincia: any) {
-    console.log(provincia);
     this.apisSVC.getCiudades(provincia).subscribe((result) => {
       this.ciudades = result.municipios.map((munic) => ({
         nombre: munic.nombre,
@@ -76,29 +66,27 @@ export class FormDatosPersonalesComponent implements OnInit {
   }
 
   onProvinciaChange() {
-    this.getCiudadesByProvincia(this.formDatosPersonales.value.provincia);
+    this.getCiudadesByProvincia(this.formGroup.value.provincia);
   }
 
   verifyExistingUser() {
-    this.apisSVC.verifyUser(this.formDatosPersonales.value.usuario).subscribe(
+    this.apisSVC.verifyUser(this.formGroup.value.usuario).subscribe(
       (result) => {
         if (result) {
           this.alertSV.alert('warning', 'Ese nombre ya esta ocupado', 1000);
-          this.formDatosPersonales.controls['usuario'].setErrors({
+          this.formGroup.controls['usuario'].setErrors({
             userExists: true,
           });
         }
         return result;
       },
-      (error) => {
-        console.log(error);
-      }
+      (error) => {}
     );
   }
 
   validarEdad() {
     var hoy = new Date();
-    var cumpleanos = new Date(this.formDatosPersonales.value.fechaNacimiento);
+    var cumpleanos = new Date(this.formGroup.value.fechaNacimiento);
     var edad = hoy.getFullYear() - cumpleanos.getFullYear();
     var m = hoy.getMonth() - cumpleanos.getMonth();
 
@@ -108,19 +96,70 @@ export class FormDatosPersonalesComponent implements OnInit {
 
     if (edad < 18 || edad > 99) {
       this.alertSV.alert('warning', 'No cumples con la edad requerida', 1000);
-      this.formDatosPersonales.controls['fechaNacimiento'].setErrors({
+      this.formGroup.controls['fechaNacimiento'].setErrors({
         invalid: true,
       });
     }
   }
 
+  definirMensajesError(): void {
+    this.mensajesError = {
+      dni: {
+        required: 'El DNI es obligatorio',
+        minlength: 'El DNI debe tener al menos 7 digitos',
+        maxlength: 'El DNI debe tener maximo 8 digitos',
+        pattern: 'El DNI debe contener solo numeros',
+      },
+      apellido: {
+        required: 'El apellido es obligatorio',
+        minlength: 'El apellido debe tener al menos 2 caracteres',
+        maxlength: 'El apellido debe tener maximo 15 caracteres',
+        pattern: 'El apellido debe contener solo letras',
+      },
+      nombre: {
+        required: 'El nombre es obligatorio',
+        minlength: 'El nombre debe tener al menos 2 caracteres',
+        maxlength: 'El nombre debe tener maximo 15 caracteres',
+        pattern: 'El nombre debe contener solo letras',
+      },
+      email: {
+        pattern: 'El email debe tener un formato valido',
+      },
+      celular: {
+        pattern: 'Ingrese el numero sin 0 ni 15, por ejemplo: 1145671234',
+      },
+      telefono: {
+        pattern: 'Ingrese el numero sin 0 ni 15, por ejemplo: 1145671234',
+      },
+      usuario: {
+        required: 'El usuario es obligatorio',
+        minlength: 'El usuario debe tener al menos 3 caracteres',
+        maxlength: 'El usuario debe tener maximo 30 aracteres',
+      },
+      fechaNacimiento: {
+        invalid: 'La fecha de nacimiento no es valida',
+      },
+      provincia: {
+        required: 'La provincia es obligatoria',
+      },
+      ciudad: {
+        required: 'La ciudad es obligatoria',
+      },
+      contrasena: {
+        required: 'La contraseña es obligatoria',
+        pattern:
+          'La contraseña debe tener entre 8 y 30 caracteres, mayusculas, minusculas y numeros',
+      },
+    };
+  }
+
   inicializarForm() {
-    this.formDatosPersonales = this.FB.group({
+    this.formGroup = this.FB.group({
       dni: new FormControl('', [
         Validators.required,
+        Validators.pattern('[0-9]*'),
         Validators.minLength(7),
         Validators.maxLength(8),
-        Validators.pattern('[0-9]*'),
       ]),
       apellido: new FormControl('', [
         Validators.required,
@@ -135,20 +174,10 @@ export class FormDatosPersonalesComponent implements OnInit {
         Validators.pattern('[a-zA-Z]*'),
       ]),
       email: new FormControl('', [
-        Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
       ]),
-      celular: new FormControl('', [
-        Validators.required,
-        Validators.minLength(9),
-        Validators.maxLength(14),
-        Validators.pattern('[0-9]*'),
-      ]),
-      telefono: new FormControl('', [
-        Validators.minLength(8),
-        Validators.maxLength(14),
-        Validators.pattern('[0-9]*'),
-      ]),
+      celular: new FormControl('', [Validators.pattern('^[0-9]{10}$')]),
+      telefono: new FormControl('', [Validators.pattern('^[0-9]{10}$')]),
       provincia: new FormControl('', [Validators.required]),
       ciudad: new FormControl('', [Validators.required]),
       domicilio: new FormControl('', [
@@ -165,8 +194,6 @@ export class FormDatosPersonalesComponent implements OnInit {
       ]),
       contrasena: new FormControl('', [
         Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(30),
         Validators.pattern(
           '(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}'
         ),
@@ -176,7 +203,7 @@ export class FormDatosPersonalesComponent implements OnInit {
 
   restoreForm() {
     this.getCiudadesByProvincia(this.datosPersonalesEditar.provincia);
-    this.formDatosPersonales.patchValue({
+    this.formGroup.patchValue({
       apellido: this.datosPersonalesEditar.apellido,
       nombre: this.datosPersonalesEditar.nombre,
       dni: this.datosPersonalesEditar.dni,
@@ -197,12 +224,12 @@ export class FormDatosPersonalesComponent implements OnInit {
   nextStep() {
     const editando: boolean = this.editando;
 
-    const asegurado: Asegurado = this.formDatosPersonales.value;
+    const asegurado: Asegurado = this.formGroup.value;
     asegurado.provinciaCompleta = this.provincias.find(
-      (prov) => prov.id == this.formDatosPersonales.value.provincia
+      (prov) => prov.id == this.formGroup.value.provincia
     );
     asegurado.ciudadCompleta = this.ciudades.find(
-      (ciudad) => ciudad.id == this.formDatosPersonales.value.ciudad
+      (ciudad) => ciudad.id == this.formGroup.value.ciudad
     );
 
     this.sendAsegurado.emit({ asegurado, editando });

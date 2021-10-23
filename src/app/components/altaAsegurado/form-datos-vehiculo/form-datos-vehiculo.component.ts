@@ -7,15 +7,18 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { BaseFormAbstract } from '../base-form-abstract/base-form-abstract';
 
 @Component({
   selector: 'app-form-datos-vehiculo',
   templateUrl: './form-datos-vehiculo.component.html',
   styleUrls: ['./form-datos-vehiculo.component.scss'],
 })
-export class FormDatosVehiculoComponent implements OnInit {
+export class FormDatosVehiculoComponent
+  extends BaseFormAbstract
+  implements OnInit
+{
   public vehiculo: Vehiculo;
-  public formDatosVehiculo: FormGroup;
   public modelos: any;
   public marcas: any;
   public versiones: any;
@@ -29,7 +32,7 @@ export class FormDatosVehiculoComponent implements OnInit {
   }> = new EventEmitter<{ vehiculo: Vehiculo; editando: boolean }>();
   @Input() datosVehiculoEditar: Vehiculo;
 
-  constructor(private FB: FormBuilder, private apisSVC: ApisService) {}
+  constructor(private FB: FormBuilder, private apisSVC: ApisService) { super(); }
 
   ngOnInit(): void {
     this.getMarcas();
@@ -42,8 +45,27 @@ export class FormDatosVehiculoComponent implements OnInit {
     }
   }
 
+  definirMensajesError(): void {
+    this.mensajesError = {
+      marca: {
+        required: 'La marca es requerida',
+      },
+      modelo: {
+        required: 'El modelo es requerido',
+      },
+      version: {
+        required: 'La versión es requerida',
+      },
+      anio: {
+        required: 'El año es requerido',
+        minLength: 'El año debe tener 4 digitos',
+        maxLength: 'El año debe tener 4 digitos',
+      },
+    };
+  }
+
   inicializarForm() {
-    this.formDatosVehiculo = this.FB.group({
+    this.formGroup = this.FB.group({
       marca: new FormControl('', [Validators.required]),
       anio: new FormControl('', [
         Validators.required,
@@ -55,21 +77,12 @@ export class FormDatosVehiculoComponent implements OnInit {
     });
   }
 
-  isValidField(field: string): string {
-    const validateField = this.formDatosVehiculo.get(field);
-    return !validateField.valid && validateField.touched
-      ? 'is-invalid'
-      : validateField.touched
-      ? 'is-valid'
-      : '';
-  }
-
   validateYear() {
-    let anio = this.formDatosVehiculo.value.anio;
+    let anio = this.formGroup.value.anio;
     let anioActual = new Date().getFullYear();
 
     if (anio > anioActual || anio < anioActual - 20) {
-      this.formDatosVehiculo.get('anio').setErrors({ invalidYear: true });
+      this.formGroup.get('anio').setErrors({ invalidYear: true });
     }
     return false;
   }
@@ -101,39 +114,37 @@ export class FormDatosVehiculoComponent implements OnInit {
           id: version.codigo,
         }));
       },
-      (error) => {
-        console.log(error);
-      }
+      (error) => {}
     );
   }
 
   onMarcaAnioChange() {
-    this.formDatosVehiculo.get('version').setValue('');
+    this.formGroup.get('version').setValue('');
     if (this.vehiculo) {
       this.vehiculo.version = null;
       this.vehiculo.versionCompleta = null;
     }
     this.getModelosByMarcaAnio(
-      this.formDatosVehiculo.value.marca,
-      this.formDatosVehiculo.value.anio
+      this.formGroup.value.marca,
+      this.formGroup.value.anio
     );
   }
 
   onVersionChange() {
     this.getVersiones(
-      this.formDatosVehiculo.value.marca,
-      this.formDatosVehiculo.value.modelo,
-      this.formDatosVehiculo.value.anio
+      this.formGroup.value.marca,
+      this.formGroup.value.modelo,
+      this.formGroup.value.anio
     );
   }
 
   nextStep() {
-    const vehiculo = this.formDatosVehiculo.value;
+    const vehiculo = this.formGroup.value;
     vehiculo.marcaCompleta = this.marcas.find(
-      (marca) => marca.id === this.formDatosVehiculo.value.marca
+      (marca) => marca.id === this.formGroup.value.marca
     );
     vehiculo.versionCompleta = this.versiones.find(
-      (version) => version.id === this.formDatosVehiculo.value.version
+      (version) => version.id === this.formGroup.value.version
     );
 
     const editando = this.editando;
@@ -155,7 +166,7 @@ export class FormDatosVehiculoComponent implements OnInit {
       this.datosVehiculoEditar.anio
     );
 
-    this.formDatosVehiculo.patchValue({
+    this.formGroup.patchValue({
       marca: this.datosVehiculoEditar.marca,
       anio: this.datosVehiculoEditar.anio,
       modelo: this.datosVehiculoEditar.modelo,

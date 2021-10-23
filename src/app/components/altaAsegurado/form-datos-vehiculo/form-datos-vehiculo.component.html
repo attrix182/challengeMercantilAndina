@@ -1,4 +1,4 @@
-<div [formGroup]="formDatosVehiculo">
+<div [formGroup]="formGroup">
   <div class="card">
     <div class="card-body">
       <h2 class="card-title">Alta de asegurado</h2>
@@ -23,6 +23,9 @@
                 {{ marcaOption.nombre }}
               </option>
             </select>
+            <span *ngIf="debeMostrarError('marca')" class="invalid-feedback">
+              {{ obtenerTextoError("marca") }}
+            </span>
           </div>
         </div>
 
@@ -38,6 +41,9 @@
               (ngModelChange)="onMarcaAnioChange()"
               required
             />
+            <span *ngIf="debeMostrarError('anio')" class="invalid-feedback">
+              {{ obtenerTextoError("anio") }}
+            </span>
           </div>
         </div>
 
@@ -57,6 +63,9 @@
                 {{ modelo }}
               </option>
             </select>
+            <span *ngIf="debeMostrarError('modelo')" class="invalid-feedback">
+              {{ obtenerTextoError("modelo") }}
+            </span>
           </div>
         </div>
 
@@ -78,12 +87,15 @@
                 {{ versionOption.nombre }}
               </option>
             </select>
+            <span *ngIf="debeMostrarError('version')" class="invalid-feedback">
+              {{ obtenerTextoError("version") }}
+            </span>
           </div>
         </div>
 
         <button
           (click)="nextStep()"
-          [disabled]="formDatosVehiculo.invalid"
+          [disabled]="formGroup.invalid"
           class="btn btn-primary btn-block"
         >
           Siguiente

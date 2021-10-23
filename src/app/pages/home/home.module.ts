@@ -1,3 +1,4 @@
+
 import { FormFinalComponent } from './../../components/altaAsegurado/form-final/form-final.component';
 import { FormResumenComponent } from './../../components/altaAsegurado/form-resumen/form-resumen.component';
 import { FormatearGranizoPipe } from './../../pipes/formatear-granizo.pipe';
@@ -26,7 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormFinalComponent,
     FormatearTituloPipe,
     FormatearDescripcionPipe,
-    FormatearGranizoPipe,
+    FormatearGranizoPipe
   ],
   imports: [
     CommonModule,

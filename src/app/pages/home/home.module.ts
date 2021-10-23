@@ -1,4 +1,3 @@
-
 import { FormFinalComponent } from './../../components/altaAsegurado/form-final/form-final.component';
 import { FormResumenComponent } from './../../components/altaAsegurado/form-resumen/form-resumen.component';
 import { FormatearGranizoPipe } from './../../pipes/formatear-granizo.pipe';
@@ -17,25 +16,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    WizardComponent,
-    FormDatosPersonalesComponent,
-    FormDatosVehiculoComponent,
-    FormCoberturasComponent,
-    FormResumenComponent,
-    FormFinalComponent,
-    FormatearTituloPipe,
-    FormatearDescripcionPipe,
-    FormatearGranizoPipe
-  ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    NavbarSharedModuleModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbModule,
-  ],
+    declarations: [
+        HomeComponent,
+        WizardComponent,
+        FormDatosPersonalesComponent,
+        FormDatosVehiculoComponent,
+        FormCoberturasComponent,
+        FormResumenComponent,
+        FormFinalComponent,
+        FormatearTituloPipe,
+        FormatearDescripcionPipe,
+        FormatearGranizoPipe
+    ],
+    imports: [CommonModule, HomeRoutingModule, NavbarSharedModuleModule, FormsModule, ReactiveFormsModule, NgbModule]
 })
 export class HomeModule {}

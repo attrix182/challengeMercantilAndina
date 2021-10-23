@@ -1,229 +1,214 @@
 <div [formGroup]="formGroup">
-  <div class="card">
-    <div class="card-body">
-      <h2 class="card-title">Alta de asegurado</h2>
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Alta de asegurado</h2>
 
-      <h5 class="card-title">Datos personales</h5>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <input
-              [class]="isValidField('dni')"
-              type="text"
-              class="form-control"
-              placeholder="DNI"
-              formControlName="dni"
-              
-              autofocus
-            />
+            <h5 class="card-title">Datos personales</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input
+                            [class]="isValidField('dni')"
+                            type="text"
+                            class="form-control"
+                            placeholder="DNI"
+                            formControlName="dni"
+                            autofocus
+                        />
 
-            <span *ngIf="debeMostrarError('dni')" class="invalid-feedback">
-              {{ obtenerTextoError("dni") }}
-            </span>
-          </div>
+                        <span *ngIf="debeMostrarError('dni')" class="invalid-feedback">
+                            {{ obtenerTextoError('dni') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input
+                            [class]="isValidField('apellido')"
+                            type="email"
+                            class="form-control"
+                            placeholder="Apellido"
+                            formControlName="apellido"
+                        />
+                        <span *ngIf="debeMostrarError('apellido')" class="invalid-feedback">
+                            {{ obtenerTextoError('apellido') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input
+                            [class]="isValidField('nombre')"
+                            type="text"
+                            class="form-control"
+                            placeholder="Nombre"
+                            formControlName="nombre"
+                        />
+                        <span *ngIf="debeMostrarError('nombre')" class="invalid-feedback">
+                            {{ obtenerTextoError('nombre') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input
+                            (ngModelChange)="validarEdad()"
+                            type="text"
+                            onfocus="(this.type='date')"
+                            [class]="isValidField('fechaNacimiento')"
+                            class="form-control"
+                            placeholder="Fecha de nacimiento"
+                            formControlName="fechaNacimiento"
+                        />
+                        <span *ngIf="debeMostrarError('fechaNacimiento')" class="invalid-feedback">
+                            {{ obtenerTextoError('fechaNacimiento') }}
+                        </span>
+                    </div>
+                </div>
+
+                <h5 class="card-title col-md-12">Datos de contacto</h5>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input
+                            [class]="isValidField('email')"
+                            type="email"
+                            class="form-control"
+                            placeholder="Email"
+                            formControlName="email"
+                        />
+                        <span *ngIf="debeMostrarError('email')" class="invalid-feedback">
+                            {{ obtenerTextoError('email') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input
+                            [class]="isValidField('celular')"
+                            type="text"
+                            class="form-control"
+                            placeholder="Celular"
+                            formControlName="celular"
+                        />
+                        <span *ngIf="debeMostrarError('celular')" class="invalid-feedback">
+                            {{ obtenerTextoError('celular') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input
+                            [class]="isValidField('telefono')"
+                            type="text"
+                            class="form-control"
+                            placeholder="Telefono"
+                            formControlName="telefono"
+                        />
+                        <span *ngIf="debeMostrarError('telefono')" class="invalid-feedback">
+                            {{ obtenerTextoError('telefono') }}
+                        </span>
+                    </div>
+                </div>
+
+                <h5 class="card-title col-md-12">Ubicacion</h5>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Provincia</label>
+                        <select
+                            class="custom-select"
+                            [class]="isValidField('provincia')"
+                            formControlName="provincia"
+                            (ngModelChange)="onProvinciaChange()"
+                        >
+                            <option disabled>Provincia</option>
+                            <option *ngFor="let prov of provincias" [ngValue]="prov.id">
+                                {{ prov.nombre }}
+                            </option>
+                        </select>
+                        <span *ngIf="debeMostrarError('provincia')" class="invalid-feedback">
+                            {{ obtenerTextoError('provincia') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Ciudad</label>
+                        <select
+                            class="custom-select"
+                            [class]="isValidField('ciudad')"
+                            class="form-control"
+                            formControlName="ciudad"
+                        >
+                            <option disabled>Ciudad</option>
+                            <option *ngFor="let ciud of ciudades" [ngValue]="ciud.id">
+                                {{ ciud.nombre }}
+                            </option>
+                        </select>
+                        <span *ngIf="debeMostrarError('ciudad')" class="invalid-feedback">
+                            {{ obtenerTextoError('ciudad') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            [class]="isValidField('domicilio')"
+                            class="form-control"
+                            placeholder="Domicilio"
+                            formControlName="domicilio"
+                        />
+                        <span *ngIf="debeMostrarError('domicilio')" class="invalid-feedback">
+                            {{ obtenerTextoError('domicilio') }}
+                        </span>
+                    </div>
+                </div>
+
+                <h5 class="card-title col-md-12">Usuario</h5>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input
+                            (ngModelChange)="verifyExistingUser()"
+                            [class]="isValidField('usuario')"
+                            type="text"
+                            class="form-control"
+                            placeholder="Nombre de usuario"
+                            formControlName="usuario"
+                        />
+                        <span *ngIf="debeMostrarError('usuario')" class="invalid-feedback">
+                            {{ obtenerTextoError('usuario') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input
+                            [class]="isValidField('contrasena')"
+                            type="password"
+                            class="form-control"
+                            placeholder="Contraseña"
+                            formControlName="contrasena"
+                        />
+                        <span *ngIf="debeMostrarError('contrasena')" class="invalid-feedback">
+                            {{ obtenerTextoError('contrasena') }}
+                        </span>
+                    </div>
+                </div>
+
+                <button (click)="nextStep()" [disabled]="formGroup.invalid" class="btn btn-primary btn-block">
+                    Siguiente
+                </button>
+            </div>
         </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              [class]="isValidField('apellido')"
-              type="email"
-              class="form-control"
-              placeholder="Apellido"
-              formControlName="apellido"
-              
-            />
-            <span *ngIf="debeMostrarError('apellido')" class="invalid-feedback">
-              {{obtenerTextoError('apellido')}}
-             </span>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              [class]="isValidField('nombre')"
-              type="text"
-              class="form-control"
-              placeholder="Nombre"
-              formControlName="nombre"
-              
-            />
-            <span *ngIf="debeMostrarError('nombre')" class="invalid-feedback">
-              {{obtenerTextoError('nombre')}}
-             </span>
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="form-group">
-            <input
-              (ngModelChange)="validarEdad()"
-              type="text"
-              onfocus="(this.type='date')"
-              [class]="isValidField('fechaNacimiento')"
-              class="form-control"
-              placeholder="Fecha de nacimiento"
-              formControlName="fechaNacimiento"
-              
-            />
-            <span *ngIf="debeMostrarError('fechaNacimiento')" class="invalid-feedback">
-              {{obtenerTextoError('fechaNacimiento')}}
-             </span>
-          </div>
-        </div>
-
-        <h5 class="card-title col-md-12">Datos de contacto</h5>
-
-        <div class="col-md-12">
-          <div class="form-group">
-            <input
-              [class]="isValidField('email')"
-              type="email"
-              class="form-control"
-              placeholder="Email"
-              formControlName="email"
-              
-            />
-            <span *ngIf="debeMostrarError('email')" class="invalid-feedback">
-              {{obtenerTextoError('email')}}
-             </span>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              [class]="isValidField('celular')"
-              type="text"
-              class="form-control"
-              placeholder="Celular"
-              formControlName="celular"
-              
-            />
-            <span *ngIf="debeMostrarError('celular')" class="invalid-feedback">
-              {{obtenerTextoError('celular')}}
-             </span>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              [class]="isValidField('telefono')"
-              type="text"
-              class="form-control"
-              placeholder="Telefono"
-              formControlName="telefono"
-            />
-            <span *ngIf="debeMostrarError('telefono')" class="invalid-feedback">
-              {{obtenerTextoError('telefono')}}
-             </span>
-          </div>
-        </div>
-
-        <h5 class="card-title col-md-12">Ubicacion</h5>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Provincia</label>
-            <select
-              class="custom-select"
-              [class]="isValidField('provincia')"
-              formControlName="provincia"
-              (ngModelChange)="onProvinciaChange()"
-              
-            >
-              <option disabled>Provincia</option>
-              <option *ngFor="let prov of provincias" [ngValue]="prov.id">
-                {{ prov.nombre }}
-              </option>
-            </select>
-            <span *ngIf="debeMostrarError('provincia')" class="invalid-feedback">
-              {{obtenerTextoError('provincia')}}
-             </span>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Ciudad</label>
-            <select
-              class="custom-select"
-              [class]="isValidField('ciudad')"
-              class="form-control"
-              formControlName="ciudad"
-              
-            >
-              <option disabled>Ciudad</option>
-              <option *ngFor="let ciud of ciudades" [ngValue]="ciud.id">
-                {{ ciud.nombre }}
-              </option>
-            </select>
-            <span *ngIf="debeMostrarError('ciudad')" class="invalid-feedback">
-              {{obtenerTextoError('ciudad')}}
-             </span>
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="form-group">
-            <input
-              type="text"
-              [class]="isValidField('domicilio')"
-              class="form-control"
-              placeholder="Domicilio"
-              formControlName="domicilio"
-              
-            />
-            <span *ngIf="debeMostrarError('domicilio')" class="invalid-feedback">
-              {{obtenerTextoError('domicilio')}}
-             </span>
-          </div>
-        </div>
-
-        <h5 class="card-title col-md-12">Usuario</h5>
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              (ngModelChange)="verifyExistingUser()"
-              [class]="isValidField('usuario')"
-              type="text"
-              class="form-control"
-              placeholder="Nombre de usuario"
-              formControlName="usuario"
-              
-            />
-            <span *ngIf="debeMostrarError('usuario')" class="invalid-feedback">
-              {{obtenerTextoError('usuario')}}
-             </span>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              [class]="isValidField('contrasena')"
-              type="password"
-              class="form-control"
-              placeholder="Contraseña"
-              formControlName="contrasena"
-              
-            />
-            <span *ngIf="debeMostrarError('contrasena')" class="invalid-feedback">
-              {{obtenerTextoError('contrasena')}}
-             </span>
-          </div>
-        </div>
-
-        <button
-          (click)="nextStep()"
-          [disabled]="formGroup.invalid"
-          class="btn btn-primary btn-block"
-        >
-          Siguiente
-        </button>
-      </div>
     </div>
-  </div>
 </div>

@@ -1,10 +1,10 @@
 export class Vehiculo {
-    marca:string;
+    marca: string;
     anio: number;
     modelo: string;
     version: any;
-    marcaCompleta:any;
-    versionCompleta:any;
+    marcaCompleta: any;
+    versionCompleta: any;
 
     constructor(marca: any, anio: number, modelo: any, version: any) {
         this.marca = marca;

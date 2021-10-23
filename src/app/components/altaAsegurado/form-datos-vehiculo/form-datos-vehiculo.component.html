@@ -1,106 +1,96 @@
 <div [formGroup]="formGroup">
-  <div class="card">
-    <div class="card-body">
-      <h2 class="card-title">Alta de asegurado</h2>
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Alta de asegurado</h2>
 
-      <h5 class="card-title">Datos del vehiculo</h5>
-      <div class="row">
-        <div class="col-md-6">
-          <label for="Marca">Marca </label>
-          <div class="form-group">
-            <select
-              class="custom-select"
-              [class]="isValidField('marca')"
-              formControlName="marca"
-              (ngModelChange)="onMarcaAnioChange()"
-              required
-            >
-              <option disabled>Marca</option>
-              <option
-                *ngFor="let marcaOption of marcas"
-                [ngValue]="marcaOption.id"
-              >
-                {{ marcaOption.nombre }}
-              </option>
-            </select>
-            <span *ngIf="debeMostrarError('marca')" class="invalid-feedback">
-              {{ obtenerTextoError("marca") }}
-            </span>
-          </div>
+            <h5 class="card-title">Datos del vehiculo</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="Marca">Marca </label>
+                    <div class="form-group">
+                        <select
+                            class="custom-select"
+                            [class]="isValidField('marca')"
+                            formControlName="marca"
+                            (ngModelChange)="onMarcaAnioChange()"
+                            required
+                        >
+                            <option disabled>Marca</option>
+                            <option *ngFor="let marcaOption of marcas" [ngValue]="marcaOption.id">
+                                {{ marcaOption.nombre }}
+                            </option>
+                        </select>
+                        <span *ngIf="debeMostrarError('marca')" class="invalid-feedback">
+                            {{ obtenerTextoError('marca') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="modelo">Año</label>
+                        <input
+                            [class]="isValidField('anio')"
+                            type="text"
+                            class="form-control"
+                            (ngModelChange)="validateYear()"
+                            formControlName="anio"
+                            (ngModelChange)="onMarcaAnioChange()"
+                            required
+                        />
+                        <span *ngIf="debeMostrarError('anio')" class="invalid-feedback">
+                            {{ obtenerTextoError('anio') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="modelo">Modelo</label>
+                        <select
+                            class="custom-select"
+                            [class]="isValidField('modelo')"
+                            class="form-control"
+                            formControlName="modelo"
+                            (ngModelChange)="onVersionChange()"
+                            required
+                        >
+                            <option disabled>Modelo</option>
+                            <option *ngFor="let modelo of modelos" [ngValue]="modelo">
+                                {{ modelo }}
+                            </option>
+                        </select>
+                        <span *ngIf="debeMostrarError('modelo')" class="invalid-feedback">
+                            {{ obtenerTextoError('modelo') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="version">Version</label>
+                        <select
+                            class="custom-select"
+                            [class]="isValidField('version')"
+                            class="form-control"
+                            formControlName="version"
+                            required
+                        >
+                            <option disabled>Version</option>
+                            <option *ngFor="let versionOption of versiones" [ngValue]="versionOption.id">
+                                {{ versionOption.nombre }}
+                            </option>
+                        </select>
+                        <span *ngIf="debeMostrarError('version')" class="invalid-feedback">
+                            {{ obtenerTextoError('version') }}
+                        </span>
+                    </div>
+                </div>
+
+                <button (click)="nextStep()" [disabled]="formGroup.invalid" class="btn btn-primary btn-block">
+                    Siguiente
+                </button>
+            </div>
         </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="modelo">Año</label>
-            <input
-              [class]="isValidField('anio')"
-              type="text"
-              class="form-control"
-              (ngModelChange)="validateYear()"
-              formControlName="anio"
-              (ngModelChange)="onMarcaAnioChange()"
-              required
-            />
-            <span *ngIf="debeMostrarError('anio')" class="invalid-feedback">
-              {{ obtenerTextoError("anio") }}
-            </span>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="modelo">Modelo</label>
-            <select
-              class="custom-select"
-              [class]="isValidField('modelo')"
-              class="form-control"
-              formControlName="modelo"
-              (ngModelChange)="onVersionChange()"
-              required
-            >
-              <option disabled>Modelo</option>
-              <option *ngFor="let modelo of modelos" [ngValue]="modelo">
-                {{ modelo }}
-              </option>
-            </select>
-            <span *ngIf="debeMostrarError('modelo')" class="invalid-feedback">
-              {{ obtenerTextoError("modelo") }}
-            </span>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="version">Version</label>
-            <select
-              class="custom-select"
-              [class]="isValidField('version')"
-              class="form-control"
-              formControlName="version"
-              required
-            >
-              <option disabled>Version</option>
-              <option
-                *ngFor="let versionOption of versiones"
-                [ngValue]="versionOption.id"
-              >
-                {{ versionOption.nombre }}
-              </option>
-            </select>
-            <span *ngIf="debeMostrarError('version')" class="invalid-feedback">
-              {{ obtenerTextoError("version") }}
-            </span>
-          </div>
-        </div>
-
-        <button
-          (click)="nextStep()"
-          [disabled]="formGroup.invalid"
-          class="btn btn-primary btn-block"
-        >
-          Siguiente
-        </button>
-      </div>
     </div>
-  </div>
 </div>

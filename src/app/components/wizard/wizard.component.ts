@@ -42,8 +42,6 @@ export class WizardComponent implements OnInit {
     this.paso = paso
   }
 
-
-
   recibirDatosPersonalesEditados(asegurado: Asegurado) {
     this.paso = 4;
     this.asegurado = asegurado;

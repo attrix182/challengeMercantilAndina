@@ -101,9 +101,10 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <input [class]="isValidField('contrasena')" type="password" class="form-control" placeholder="Contraseña"
+            <input [class]="isValidField('contrasena')"  type="password" class="form-control" placeholder="Contraseña"
               formControlName="contrasena" required>
           </div>
+
         </div>
 
         <button (click)="nextStep()" *ngIf="!datosPersonalesEditar" [disabled]="formDatosPersonales.invalid"

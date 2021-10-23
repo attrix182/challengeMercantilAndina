@@ -25,7 +25,8 @@
         <h6>Usuario: {{datosPersonalesAsegurado.usuario}}</h6>
         <h6>Contraseña: {{datosPersonalesAsegurado.contrasena}}</h6>
       </div>
-      <button class="mb-2 btn btn-info btn-block text-dark btnEditar" (click)="editarDatosPersonales()"> <i class="fas fa-pen"></i> Editar</button>
+      <button class="mb-2 btn btn-info btn-block text-dark btnEditar" (click)="editarDatosPersonales()"> <i
+          class="fas fa-pen"></i> Editar</button>
     </div>
 
 
@@ -43,7 +44,8 @@
         <h6>Version: {{datosVehiculoAsegurado.versionCompleta.nombre}}</h6>
 
       </div>
-      <button class="mb-2 btn btn-info btn-block text-dark btnEditar" (click)="editarVehiculo()">  <i class="fas fa-pen"></i> Editar</button>
+      <button class="mb-2 btn btn-info btn-block text-dark btnEditar" (click)="editarVehiculo()"> <i
+          class="fas fa-pen"></i> Editar</button>
     </div>
 
     <div class="cardDatos mt-2">
@@ -61,12 +63,15 @@
         <h6>Descripcion: {{datosCoberturaAsegurado.descripcion | formatearDescripcion}}</h6>
 
       </div>
-      <button class="mb-2 btn btn-info text-dark btn-block btnEditar" (click)="editarCobertura()"> <i class="fas fa-pen"></i> Editar</button>
+      <button class="mb-2 btn btn-info text-dark btn-block btnEditar" (click)="editarCobertura()"> <i
+          class="fas fa-pen"></i> Editar</button>
     </div>
   </div>
 
   <button *ngIf="!enviando" (click)="enviarDatos()" class="btn btn-success btn-block mb-3 mt-3">Enviar</button>
 
-  <button *ngIf="enviando" class="btn btn-success btn-block mb-3 mt-3"> <div class="spinner-border" role="status"></div> </button>
+  <button *ngIf="enviando" class="btn btn-success btn-block mb-3 mt-3">
+    <div class="spinner-border" role="status"></div>
+  </button>
 
 </div>

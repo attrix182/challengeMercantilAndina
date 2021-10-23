@@ -16,9 +16,11 @@ export class FormDatosVehiculoComponent implements OnInit {
   public marcas: any;
   public versiones: any;
 
+  public marcaCompleta: any;
+  public versionCompleta: any;
+
 
   @Output() sendVehiculo: EventEmitter<Vehiculo> = new EventEmitter<Vehiculo>();
-
 
   @Output() sendVehiculoEditado: EventEmitter<Vehiculo> = new EventEmitter<Vehiculo>();
 
@@ -27,9 +29,6 @@ export class FormDatosVehiculoComponent implements OnInit {
   constructor(private FB: FormBuilder, private apisSVC: ApisService) { }
 
   ngOnInit(): void {
-
-
-
 
     this.getMarcas();
 
@@ -41,24 +40,18 @@ export class FormDatosVehiculoComponent implements OnInit {
       version: new FormControl('', [Validators.required]),
     });
 
-
-    if (this.datosVehiculoEditar) {
-
-      console.log(this.datosVehiculoEditar);
-
-      this.formDatosVehiculo.controls.marca.setValue(this.datosVehiculoEditar.marca.nombre);
-
-      this.formDatosVehiculo.patchValue({
-        marca: this.datosVehiculoEditar.marca,
-        anio: this.datosVehiculoEditar.anio,
-        modelo: this.datosVehiculoEditar.modelo,
-        version: this.datosVehiculoEditar.version,
-      });
-    }
-
+    this.restoreForm();
 
   }
 
+
+  getMarcas() {
+    this.apisSVC.getMarcas().subscribe(
+      result => {
+        this.marcas = result.map(marca => ({ nombre: marca.desc, id: marca.codigo }));
+      },
+    );
+  }
 
   validateYear() {
     let anio = this.formDatosVehiculo.value.anio;
@@ -70,18 +63,21 @@ export class FormDatosVehiculoComponent implements OnInit {
     return false;
   }
 
-  getMarcas() {
-    this.apisSVC.getMarcas().subscribe(
-      result => {
-        this.marcas = result.map(marca => ({ nombre: marca.desc, id: marca.codigo }));
-      },
-    );
+  onMarcaAnioChange() {
+    this.formDatosVehiculo.get('version').setValue('');
+    if (this.vehiculo) {
+      this.vehiculo.version = null
+      this.vehiculo.versionCompleta = null;
+    }
+    this.getModelosByMarcaAnio(this.formDatosVehiculo.value.marca, this.formDatosVehiculo.value.anio);
+
   }
 
-  getModelosByMarcaAnio(event: Event) {
+  onVersionChange() {
+    this.getVersiones(this.formDatosVehiculo.value.marca, this.formDatosVehiculo.value.modelo, this.formDatosVehiculo.value.anio);
+  }
 
-    let marca = this.formDatosVehiculo.value.marca.id;
-    let anio = this.formDatosVehiculo.value.anio;
+  getModelosByMarcaAnio(marca: string, anio: string | number) {
 
     if (!marca || !anio) {
       return;
@@ -94,10 +90,8 @@ export class FormDatosVehiculoComponent implements OnInit {
     );
   }
 
-  getVersiones(event: Event) {
-    let anio = this.formDatosVehiculo.value.anio;
-    let marca = this.formDatosVehiculo.value.marca.id;
-    let modelo = this.formDatosVehiculo.value.modelo;
+  getVersiones(marca: string, modelo: string, anio: number | string) {
+
 
     this.apisSVC.getVersiones(marca, anio, modelo).subscribe(
       result => {
@@ -120,15 +114,38 @@ export class FormDatosVehiculoComponent implements OnInit {
   }
 
   nextStep() {
-
     this.vehiculo = this.formDatosVehiculo.value;
+    this.vehiculo.marcaCompleta = this.marcas.find(marca => marca.id === this.formDatosVehiculo.value.marca);
+    this.vehiculo.versionCompleta = this.versiones.find(version => version.id === this.formDatosVehiculo.value.version)
     this.sendVehiculo.emit(this.vehiculo);
   }
 
   finishModify() {
 
     this.vehiculo = this.formDatosVehiculo.value;
+    this.vehiculo.marcaCompleta = this.marcas.find(marca => marca.id === this.formDatosVehiculo.value.marca);
+    this.vehiculo.versionCompleta = this.versiones.find(version => version.id === this.formDatosVehiculo.value.version)
     this.sendVehiculoEditado.emit(this.vehiculo);
   }
 
+  restoreForm() {
+
+
+    if (!this.datosVehiculoEditar) {
+      return;
+    }
+
+    this.getModelosByMarcaAnio(this.datosVehiculoEditar.marca, this.datosVehiculoEditar.anio);
+    this.getVersiones(this.datosVehiculoEditar.marca, this.datosVehiculoEditar.modelo, this.datosVehiculoEditar.anio);
+
+
+    this.formDatosVehiculo.patchValue({
+      marca: this.datosVehiculoEditar.marca,
+      anio: this.datosVehiculoEditar.anio,
+      modelo: this.datosVehiculoEditar.modelo,
+      version: this.datosVehiculoEditar.version,
+    });
+  }
 }
+
+

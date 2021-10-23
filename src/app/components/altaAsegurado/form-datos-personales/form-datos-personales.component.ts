@@ -15,12 +15,15 @@ export class FormDatosPersonalesComponent implements OnInit {
   public provincias: any;
   public ciudades: any;
 
+  public proviniciaCompleta: any;
+  public ciudadCompleta: any
 
-  @Input() datosPersonalesEditar: Asegurado;
 
   @Output() sendAsegurado: EventEmitter<Asegurado> = new EventEmitter<Asegurado>();
 
   @Output() sendAseguradoEdited: EventEmitter<Asegurado> = new EventEmitter<Asegurado>();
+
+  @Input() datosPersonalesEditar: Asegurado;
 
   constructor(private FB: FormBuilder, private apisSVC: ApisService) { }
 
@@ -46,27 +49,19 @@ export class FormDatosPersonalesComponent implements OnInit {
 
     });
 
-    if (this.datosPersonalesEditar) {
-      this.formDatosPersonales.patchValue({
-        apellido: this.datosPersonalesEditar.apellido,
-        nombre: this.datosPersonalesEditar.nombre,
-        dni: this.datosPersonalesEditar.dni,
-        email: this.datosPersonalesEditar.email,
-        celular: this.datosPersonalesEditar.celular,
-        telefono: this.datosPersonalesEditar.telefono,
 
-        provincia: this.datosPersonalesEditar.provincia.id,
-        ciudad: this.datosPersonalesEditar.ciudad.id,
-        
-        domicilio: this.datosPersonalesEditar.domicilio,
-        fechaNacimiento: this.datosPersonalesEditar.fechaNacimiento,
-        usuario: this.datosPersonalesEditar.usuario,
-        contrasena: this.datosPersonalesEditar.contrasena,
-
-      });
-    }
+    this.restoreForm();
 
 
+  }
+
+  isValidField(field: string): string {
+    const validateField = this.formDatosPersonales.get(field);
+    return !validateField.valid && validateField.touched
+      ? 'is-invalid'
+      : validateField.touched
+        ? 'is-valid'
+        : '';
   }
 
   getProvincias() {
@@ -81,24 +76,12 @@ export class FormDatosPersonalesComponent implements OnInit {
 
   getCiudadesByProvincia(provincia: any) {
     console.log(provincia)
-    this.apisSVC.getCiudades(provincia.id).subscribe(
+    this.apisSVC.getCiudades(provincia).subscribe(
       result => {
         this.ciudades = result.municipios.map(munic => ({ nombre: munic.nombre, id: munic.id }));
       },
     );
   }
-
-
-
-  isValidField(field: string): string {
-    const validateField = this.formDatosPersonales.get(field);
-    return !validateField.valid && validateField.touched
-      ? 'is-invalid'
-      : validateField.touched
-        ? 'is-valid'
-        : '';
-  }
-
 
   verifyExistingUser() {
     this.apisSVC.verifyUser(this.formDatosPersonales.value.usuario).subscribe(
@@ -134,16 +117,54 @@ export class FormDatosPersonalesComponent implements OnInit {
 
   }
 
+  onProvinciaChange() {
+    this.getCiudadesByProvincia(this.formDatosPersonales.value.provincia);
+  }
+
 
   nextStep() {
     this.asegurado = this.formDatosPersonales.value;
+    this.asegurado.provinciaCompleta = this.provincias.find(prov => prov.id == this.formDatosPersonales.value.provincia);
+    this.asegurado.ciudadCompleta = this.ciudades.find(ciudad => ciudad.id == this.formDatosPersonales.value.ciudad);
     this.sendAsegurado.emit(this.asegurado)
   }
 
   finishModify() {
     this.asegurado = this.formDatosPersonales.value;
+    this.asegurado.provinciaCompleta = this.provincias.find(prov => prov.id == this.formDatosPersonales.value.provincia);
+    this.asegurado.ciudadCompleta = this.ciudades.find(ciudad => ciudad.id == this.formDatosPersonales.value.ciudad);
     this.sendAseguradoEdited.emit(this.asegurado)
   }
 
+  restoreForm() {
+
+
+    if (!this.datosPersonalesEditar) {
+      return;
+    }
+
+    this.getCiudadesByProvincia(this.datosPersonalesEditar.provincia);
+
+
+   
+      this.formDatosPersonales.patchValue({
+        apellido: this.datosPersonalesEditar.apellido,
+        nombre: this.datosPersonalesEditar.nombre,
+        dni: this.datosPersonalesEditar.dni,
+        email: this.datosPersonalesEditar.email,
+        celular: this.datosPersonalesEditar.celular,
+        telefono: this.datosPersonalesEditar.telefono,
+
+        provincia: this.datosPersonalesEditar.provincia,
+        ciudad: this.datosPersonalesEditar.ciudad,
+        
+        domicilio: this.datosPersonalesEditar.domicilio,
+        fechaNacimiento: this.datosPersonalesEditar.fechaNacimiento,
+        usuario: this.datosPersonalesEditar.usuario,
+        contrasena: this.datosPersonalesEditar.contrasena,
+
+      });
+    
+  }
 
 }

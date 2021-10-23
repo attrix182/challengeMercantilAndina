@@ -26,6 +26,7 @@ export class WizardComponent implements OnInit {
   }
 
   recibirDatosVehiculo(vehiculo: Vehiculo) {
+    console.log(vehiculo);
     this.paso = 3;
     this.vehiculo = vehiculo;
 

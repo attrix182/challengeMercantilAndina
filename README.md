@@ -30,17 +30,19 @@ Hay dos opciones:
   - Acceder a localhost:4200 desde su navegador
 
 ## Guia del desarrollo
-
-![files](https://user-images.githubusercontent.com/44885834/138568231-1773f7e0-65d7-4b2a-8a60-bdd1de2f5878.jpg)
+![files](https://user-images.githubusercontent.com/44885834/138575741-d5084a64-0f3a-4ec0-b9a8-4a10b6869898.jpg)
 
 En primer lugar se creo un componente padre con lazy loading llamado home dentro de la carpeta /pages, el cual sera la vista de la pagina principal.
 
-Luego encontramos la carperta /components, donde en primer lugar esta los componentes navbar y wizard, wizard sera el encargado de contener los distintos pasos del alta de asegurado.
-
+Luego encontramos la carperta /components, donde en primer lugar esta el componente navbar.
 Dentro de esta misma carpera se encuantra otro directorio llamado /altaAsegurado donde estan los distintos formularios para los 4 pasos del alta y una pantalla de "exito".
+Wizard sera el encargado de contener los distintos pasos del alta de asegurado.
+Tambien encontramos base-form-abstract, el cual es un componente abstracto con la base para validar y mostrar los distintos errores en las entradas de datos, dandonos la posibilidad de reutilizar su codigo en las distintas iteraciones con el usuario.
 
 Cada formulario sigue la misma linea de diseño, las validaciones se han hecho con la biblioteca de angular/forms, utilizando los validadores que nos ofrece.
 
 Tambien encontramos la carpeta /pipes, donde he creado algunos pipes de utilidad para formatear mensajes y textos de una forma mas clara.
 
 Por ultimo tenemos la carpeta /services donde se encuentra el apis.service, el cual mediante el HttpClientModule realiza peticiones get a los distintos endpoints de las apis necesarias para completar los datos en los formularios, tambien encontramos alert.service el cual contiene un metodo de SweetAlert el cual recibe un mensaje, un tipo de mensaje y duracion.
+
+
